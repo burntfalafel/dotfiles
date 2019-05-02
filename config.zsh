@@ -13,7 +13,6 @@ setopt hist_allow_clobber
 
 #ZSH OPTS
 setopt noclobber
-setopt extendedglob
 setopt correct
 setopt autolist
 setopt auto_resume
