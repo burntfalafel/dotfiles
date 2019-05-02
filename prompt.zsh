@@ -21,35 +21,37 @@ setopt prompt_subst
 
 PROMPT="${fg_white}%m ${fg_red}%n ${fg_blue}%c\${vcs_info_msg_0_} %(?/${fg_white}/${fg_red})%%${at_normal} "
 
-INSERT_PROMPT="14"
-COMMAND_PROMPT="1"
+INSERT_MODE_PROMPT="1"
+NORMAL_MODE_PROMPT="4"
 
 set_prompt_color() {
     if [[ $TERM = "linux" ]]; then
         # nothing
     elif [[ $TMUX != '' ]]; then
-        printf '\033Ptmux;\033\033]12;%b\007\033\\' "$1"
+        #printf '\033Ptmux;\033\033]12;%b\007\033\\' "$1"
+        printf '\033Ptmux;\033\033[%b q\033\\' "$1"
     else
-        echo -ne "\033]12;$1\007"
+        #echo -ne "\033]12;$1\007"
+        echo -ne "\033[$1 q"
     fi
 }
 
 # change cursor color basing on vi mode
 zle-keymap-select () {
     if [ $KEYMAP = vicmd ]; then
-        set_prompt_color $COMMAND_PROMPT
+        set_prompt_color $NORMAL_MODE_PROMPT
     else
-        set_prompt_color $INSERT_PROMPT
+        set_prompt_color $INSERT_MODE_PROMPT
     fi
 }
 
 zle-line-finish() {
-    set_prompt_color $INSERT_PROMPT
+    set_prompt_color $INSERT_MODE_PROMPT
 }
 
 zle-line-init () {
     zle -K viins
-    set_prompt_color $INSERT_PROMPT
+    set_prompt_color $INSERT_MODE_PROMPT
 }
 
 zle -N zle-keymap-select
