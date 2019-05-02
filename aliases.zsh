@@ -27,6 +27,7 @@ alias -g .....='../../../../'   #cd .....
 
 #sprunge paste service
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+alias ixio="curl -F 'f:1=<-' ix.io"
 
 #common arch aliases
 alias p="packer"
