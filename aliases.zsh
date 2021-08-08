@@ -30,11 +30,11 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias ixio="curl -F 'f:1=<-' ix.io"
 
 #common arch aliases
-alias p="packer"
 alias sc="systemctl"
 alias jc="journalctl"
 
+# nvim
+alias vim="nvim"
+
 alias uu="udiskie-umount"
 alias detach="udisks --detach"
-
-alias suspend="i3lock -c 282828 & sc suspend"

@@ -19,10 +19,10 @@ precmd () {
 setopt prompt_subst
 
 
-PROMPT="${fg_white}%m ${fg_red}%n ${fg_blue}%c\${vcs_info_msg_0_} %(?/${fg_white}/${fg_red})%%${at_normal} "
+PROMPT="${fg_white}%m ${fg_red}%n ${fg_blue}%d\${vcs_info_msg_0_} %(?/${fg_white}/${fg_red})%%${at_normal} "
 
-INSERT_MODE_PROMPT="1"
-NORMAL_MODE_PROMPT="4"
+INSERT_MODE_PROMPT="5"
+NORMAL_MODE_PROMPT="1"
 
 set_prompt_color() {
     if [[ $TERM = "linux" ]]; then
@@ -32,7 +32,7 @@ set_prompt_color() {
         printf '\033Ptmux;\033\033[%b q\033\\' "$1"
     else
         #echo -ne "\033]12;$1\007"
-        echo -ne "\033[$1 q"
+        echo -ne "\e[$1 q"
     fi
 }
 
