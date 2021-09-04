@@ -129,4 +129,42 @@ ab WQ wq
 ab Q q
 ab WQA wqa
 ab Wqa wqa
+
+" The hard way
+nmap <Up> <Nop>
+nmap <Down> <Nop>
+nmap <Left> <Nop>
+nmap <Right> <Nop>
+
+" Switching between windows
+nnoremap <C-Right>	 :vsplit 
+nnoremap <C-Left>	 :Vex<CR>
+nnoremap <C-Down>	 :split 
+nnoremap <C-Up>		 :Sex<CR>
+nnoremap <C-e>		 :E<CR>
+nnoremap <Up>	     <C-w>5-
+nnoremap <Down>      <C-w>5+
+nnoremap <Left>      <C-w>10<
+nnoremap <Right>     <C-w>10>
+tnoremap <Esc>		 <C-\><C-n>
 "}}}
+"Plugins {{{
+call plug#begin('~/usr/nvim/plugged')
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mhinz/vim-signify'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+call plug#end()
+" }}}
+" Vim-signify {{{
+" default updatetime 4000ms is not good for async update
+set updatetime=100
+" }}}
