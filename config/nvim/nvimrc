@@ -119,6 +119,8 @@ autocmd FileType markdown,vimwiki noremap <C-J> <Esc>[sve<C-G>
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>[sve<C-G>
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>b[sviw<C-G>
 
+" To see carriage returns for windows files
+set fileformats=unix
 "Great map which saves the file in sudo mode, something like `sudo !!`
 cnoremap w!! w !sudo tee >/dev/null %
 

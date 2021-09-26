@@ -43,7 +43,7 @@ call HighlightFor("Title",     "#c592ff", "NONE", "NONE")
 call HighlightFor("Cursor",       "#00FFC8", "NONE",    "NONE")
 "call HighlightFor("CursorLine",   "#140007", "#FF0055", "bold")
 call HighlightFor("CursorLine",   "#NONE", "NONE", "bold")
-call HighlightFor("CursorLineNr", "#00FFC8", "#00FFC8", "NONE")
+call HighlightFor("CursorLineNr", "NONE", "#00DAAB", "NONE")
 call HighlightFor("CursorColumn", "NONE",    "NONE",    "NONE")
 " }}}
 
