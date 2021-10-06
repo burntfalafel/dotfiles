@@ -1,0 +1,25 @@
+"query: Linux Reddit:tags # \"content\" or title =~ \"\\[OC\\]\"" meta
+"query: Linux TechNews:tags # \"technews\" or title =~ \"\\[OC\\]\"" meta
+"query: Github:tags # \"github\" 
+"query:Unread:unread = \"yes\"" meta
+
+http://lukesmith.xyz/rss.xml "~💾 Luke Smith" content
+https://www.reddit.com/r/linux/new.rss reddit content
+https://www.reddit.com/r/Ubuntu/new.rss reddit content
+https://www.reddit.com/r/commandline/new.rss reddit content
+
+https://lobste.rs/t/linux,unix,freebsd,openbsd,netbsd,dragonflybsd,illumos,devops.rss "~📰 Lobsters Linux" technews 
+http://rss.slashdot.org/Slashdot/slashdotLinux.rss "~📰 Slashdot " technews
+https://www.phoronix.com/rss.php "~📰 Phoronix " technews
+http://feeds.feedburner.com/linuxtoday/linux?/format=xml "~📰 Linux Today " technews
+
+https://rsshub.app/github/repos/aronhoff github
+https://rsshub.app/github/user/followers/aronhoff github
+https://rsshub.app/github/repos/aronhoff github
+
+https://www.reddit.com/r/archlinux/new.rss reddit 
+https://www.reddit.com/r/bspwm/new.rss reddit 
+https://www.reddit.com/r/vim/new.rss reddit 
+https://www.reddit.com/r/unixporn/new.rss reddit
+
+https://news.ycombinator.com/rss news

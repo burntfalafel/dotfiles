@@ -1,0 +1,200 @@
+#---BSPWM Bindings
+# Quit bspwm
+super + shift + Escape
+  prompt "Are you sure you would like to quit this Xsession" "bspc quit"
+
+# Restart bspwm
+super + shift + w
+  bspc wm -r
+
+# Kill Window
+super +  q
+  crystal --close
+
+# Focus on window in direction
+alt + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+#	Send window to desktop
+super + shift + {0-9}
+  crystal --send {0-9}
+
+# Send window to desktop and swap to desktop
+super + control + {0-9}
+  bspc node -d {0-9} && bspunhide && bspc desktop -f {0-9}
+
+# Rotate the tree from the current nodes parent
+super + control + {Right, Left}
+  bspc node @parent -C {forward, backward}
+
+# Flip the tree from the current nodes parent
+super + control + {h,j,k,l}
+  bspc node @parent -F {vertical,horizontal,horizontal,vertical}
+
+# Toggle fullscreen on and off
+super + f
+  crystal --fullscreen
+
+# Toggle floating on and off
+super + o
+  bspc node focused.tiled -t floating || bspc node focused.floating -t tiled
+
+# Swap window with direction
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+# Focus on desktop
+super + {0-9}
+	crystal --focus {0-9}
+
+# Cycle through desktops
+super + alt + {Left, Right}
+  crystal --focus {prev, next}
+
+# Expand a window by moving one of its side outward
+ctrl + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+  #xdo resize {-w -20, -h +20, -h -20, -w +20}
+
+# Contract a window by moving one of its side inward
+ctrl + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+  #xdo resize {-w +20, -h -20, -h +20, -w -20}
+
+# Move a floating window
+ctrl + alt + {Left,Right,Up,Down}
+  xdo move {-x -20, -x +20, -y -20, -y +20}
+
+
+#---Tabbing---#
+# Prompt to open new app as a new tab
+#super + t; d
+#    tabdmenu
+
+# Add focused window to a tabbed instance in given direction
+# super + t; {h,j,k,l}
+#     tabc add {west,south,north,east} "$(bspc query -N -n focused)"
+
+# Remove one tab from tabbed
+# super + t; r
+#     tabbed=$(bspc query -N -n focused); \
+#     child=$(tabc list $tabbed | head -n1); \
+#     tabc remove $child
+
+#---System Control---#
+# Restart hotkey damon
+super + shift + x
+  killall sxhkd && sxhkd &
+  #killandnotify "sxhkd" "Config reloaded" && sxhkd &
+
+super + shift + o
+  reloadpolybar
+
+super + shift + {r, s, z}
+  prompt {"Are you sure you would like to reboot Eashan?" "sudo reboot", "Are you sure you would like to shutdown Eashan?" "sudo poweroff", "Are you sure you would like to hibernate Eashan?" "loginctl hibernate"}
+
+# Lock the screen
+super + l
+  lockscreen & 
+
+super + shift + c
+  toggleprogram "picom" "--experimental-backends"
+
+#---Script Keys---#
+#super + {x, u, t, w, i, g, a, p, m}
+#  {dmonitor "DisplayPort-0" "HDMI-A-0", updatepackages, notifytorrents, devenv, importandroid, openterminalin, dcalc, cpcolor, notifycrypto}
+
+#super + {b, c, e}
+#  {bookmenu -p "Select a bookmark" -b ~/.config/bookmenu/browser -co $BROWSER, bookmenu -p "Select a config" -b ~/.config/bookmenu/configs -co "$TERMINAL -e nvim"}
+
+#super + {r, s}
+#  $TERMINAL -e {dman ., dlfile}
+
+#F7
+#  toggletouch
+
+# Audio Control
+# ALSA Controls
+#super + {_, shift} + p
+#  alsavolctrl Headphone {2%+, 2%-}
+#
+#super + {_, shift} + s
+#  alsavolctrl Speaker {2%+, 2%-}
+#
+#super + {Up, Down}
+#  alsavolctrl Master {2%+, 2%-}
+#
+#super + F4
+#  alsavolctrl All mute
+
+# Pulse Controls
+super + {F3, F2}
+  pulsevolctrl "output-vol" "alsa_output.pci-0000_00_1b.0.analog-stereo" {+2%, -2%}
+
+super + F1
+  pulsevolctrl "output-mute" "alsa_output.pci-0000_00_1b.0.analog-stereo"
+
+# Media Controls
+#super + F7
+#  playerctl next
+
+#super + F4
+#  playerctl previous
+
+#super + F8
+#  playerctl play-pause
+
+#super + slash
+#  songnotification
+
+# Brightness
+super + {F5, F6}
+  light {-U 5, -A 5} && polybar-msg hook backlight 1
+
+# Screenshots
+Print
+  screenshot full
+
+shift + Print
+  screenshot select
+
+control + Print
+  screenshot fulltime
+
+super + Print
+  screenshot selecttime
+
+#---Application Launchers---#
+super + d
+  dmenu_run -fn "IBM Plex Sans-10" 
+
+super + Return
+  alacritty
+
+#super + {alt, Shift_L} + Return
+#  {st, stabmux}
+
+# Snaps
+#super + alt + l
+#  snap run slack
+
+#super + alt + {k, o, g, b, e, f, v, s, d}
+#  {kdenlive, obs, gimp, $BROWSER, thunderbird, pcmanfm, virtualbox, spotify, discord-canary}
+super + alt + {b, f, s, d}
+   {firefox -private-window, pcmanfm, spotify, discord}
+
+
+super + b
+  firefox
+
+super + e
+  dmenukaomoji
+  #kill -s USR1 $(pidof deadd-notification-center)
+
+# Tracking Apps
+#super + alt + {a, r, t, p, n, c, j}
+#  bspc rule -a st-256color -o state=floating rectangle=800x500+100+100 sticky=on && $TERMINAL -e {alsamixer, lf, transmission-remote-cli, htop, nvim, calcurse, joplin}
+
+super + alt + {a, l, j, h, n, c, t, p}
+  $TERMINAL -e {alsamixer, lf, joplin-desktop, htop, nvim, bc, nvim ~/vimwiki/index.wiki, newsboat}
+
