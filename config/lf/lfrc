@@ -185,7 +185,9 @@ map gtr cd ~/.local/share/Trash/files
 map gus cd /mnt
 
 map gv. cd ~/Research/Books/TobeRead
-map gva cd /mnt/media/Anime/
+map gva cd /mnt/rclone/media/Anime/
+map gvm cd /mnt/rclone/media/Movies/
+map gvm cd /mnt/rclone/media/TV-Shows/
 
 map gy. cd ~/videos/youtube
 map gyt cd ~/videos/youtube/ToUpload
