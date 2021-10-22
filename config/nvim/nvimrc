@@ -1,4 +1,8 @@
 " Main options {{{
+" Python version options for Neovim {{{
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+" }}}
 filetype plugin indent on
 filetype plugin on
 filetype indent on
@@ -151,7 +155,7 @@ nnoremap <Right>     <C-w>10>
 tnoremap <Esc>		 <C-\><C-n>
 "}}}
 "Plugins {{{
-call plug#begin('~/usr/nvim/plugged')
+call plug#begin('~/.local/usr/nvim/plugged')
 " Track the engine.
 Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
@@ -164,9 +168,48 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+Plug 'preservim/nerdcommenter'
+Plug 'vim-scripts/DoxygenToolkit.vim'
 call plug#end()
 " }}}
 " Vim-signify {{{
 " default updatetime 4000ms is not good for async update
 set updatetime=100
 " }}}
+" vim-lsp-ultisnips {{{
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+if executable('clangd')
+    augroup vim_lsp_cpp
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+                    \ 'name': 'clangd',
+                    \ 'cmd': {server_info->['clangd']},
+                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+                    \ })
+	autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
+    augroup end
+endif
+
+if executable('bash-language-server')
+  augroup LspBash
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'bash-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+          \ 'allowlist': ['sh'],
+          \ })
+  augroup END
+endif
+
+set completeopt+=menuone
+""" }}}
+""" nerdcommenter {{{
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_cpp = 1
+let g:NERDAltDelims_c = 1
+""" }}}
