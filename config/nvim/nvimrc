@@ -1,7 +1,7 @@
 " Main options {{{
 " Python version options for Neovim {{{
-let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python_host_prog = '/bin/python'
+let g:python3_host_prog = '/bin/python3'
 " }}}
 filetype plugin indent on
 filetype plugin on
@@ -177,9 +177,15 @@ call plug#end()
 set updatetime=100
 " }}}
 " vim-lsp-ultisnips {{{
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<C-w>"
+let g:UltiSnipsListSnippets="<C-e>" 
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+"inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
 
 if executable('clangd')
     augroup vim_lsp_cpp
@@ -187,6 +193,7 @@ if executable('clangd')
         autocmd User lsp_setup call lsp#register_server({
                     \ 'name': 'clangd',
                     \ 'cmd': {server_info->['clangd']},
+                    \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
                     \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
                     \ })
 	autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
