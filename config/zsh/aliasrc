@@ -1,0 +1,4 @@
+export DOTFILES=$HOME/workspace/dotfiles
+
+alias ls="ls --color=auto"
+alias dotup="pushd .; cd $DOTFILES; git add *; git commit -m \"`date`\"; git push "
