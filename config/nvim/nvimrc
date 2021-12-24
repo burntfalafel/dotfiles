@@ -1,7 +1,7 @@
 " Main options {{{
 " Python version options for Neovim {{{
-let g:python_host_prog = '/bin/python'
-let g:python3_host_prog = '/bin/python3'
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
 " }}}
 filetype plugin indent on
 filetype plugin on
@@ -19,15 +19,26 @@ colorscheme cyberpunk
 
 "set term=tmux-256color
 "## More options
+" line 
 set ruler
+" relative number (for eg. '12j')
+set relativenumber
+" show current number
+set nu
+" start scrolling when you are 10 lines away
+set scrolloff=10
+set number
+" sign column for git/lsp
+set signcolumn=yes
+" 80th column - code might be getting messey
+set colorcolumn=80
+
 set wildmenu
 "set hidden  " Useful feature, to have multiples buffer open
 "cursor
 set cursorline
 "hi clear CursorLine 
 "hi CursorLine term=bold cterm=bold guibg=Grey40
-"tabs into spaces
-set expandtab
 "Searching
 nnoremap / /\v
 vnoremap / /\v
@@ -39,11 +50,12 @@ set hlsearch
 match Error /{{{\|}}}/
 " }}}
 set clipboard=unnamedplus
-set number
 " General settings {{{
 set noswapfile
 set nobackup
 set nowritebackup
+set undodir=~/.config/nvim/undodir
+set undofile
 
 " Waiting times are painful
 "set timeoutlen=500
@@ -55,19 +67,35 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set lazyredraw
+" keep buffers open
+set hidden
 
 "Indentation
-set shiftwidth=2
+set shiftwidth=4
+"tabs into spaces
 set expandtab
-set tabstop=2
+set smartindent
+set tabstop=4 
+" Don't want my tab command to get overwritten
+augroup expandtabFTW
+    autocmd!
+    autocmd FileType * setlocal expandtab
+augroup END
 set backspace=2
 set foldmethod=marker
 set cino=N-s
 
 "uncategorized
-"set exrc
+" source .vimrc in any folder
+set exrc 
 set wildignore=*.so,*.sw,*.pyc
 set mouse=a
+
+" Give more space for displaying messages
+set cmdheight=2
+
+" default updatetime from 4000ms to 50 is not good for async update
+set updatetime=50
 
 " }}}
 
@@ -89,8 +117,10 @@ nnoremap <silent> <leader>k :next<CR>
 nnoremap <silent> <leader>j :previous<CR>
 nnoremap <silent> <leader>q :q<cr>
 nnoremap <silent> <leader>w :w!<cr>
-nnoremap <silent> <leader>e :Gstatus<CR>
-nnoremap <silent> <leader>E :bd .git/index<CR>
+nnoremap <silent> <leader>e :Git<CR>
+nnoremap <silent> <leader>s :!tmux split-window 'make; read'<CR>
+nnoremap <silent> <leader>c :!tmux split-window 'make clean; read;' <CR>
+"nnoremap <silent> <leader>E :bd .git/index<CR>
 nnoremap <silent> <leader>a :copen<CR>
 nnoremap <silent> <leader>A :cclose<CR>
 nnoremap <silent> <leader>d :Gdiff<CR>
@@ -156,67 +186,33 @@ tnoremap <Esc>		 <C-\><C-n>
 "}}}
 "Plugins {{{
 call plug#begin('~/.local/usr/nvim/plugged')
-" Track the engine.
+" git snippets
+Plug 'tpope/vim-fugitive'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+" For ultisnips users.
 Plug 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mhinz/vim-signify'
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
 Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 call plug#end()
 " }}}
-" Vim-signify {{{
-" default updatetime 4000ms is not good for async update
-set updatetime=100
-" }}}
-" vim-lsp-ultisnips {{{
-let g:UltiSnipsExpandTrigger="<C-w>"
-let g:UltiSnipsListSnippets="<C-e>" 
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-"inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
-
-if executable('clangd')
-    augroup vim_lsp_cpp
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
-                    \ 'name': 'clangd',
-                    \ 'cmd': {server_info->['clangd']},
-                    \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-                    \ })
-	autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
-    augroup end
-endif
-
-if executable('bash-language-server')
-  augroup LspBash
-    autocmd!
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'bash-language-server',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
-          \ 'allowlist': ['sh'],
-          \ })
-  augroup END
-endif
-
-set completeopt+=menuone
-""" }}}
 """ nerdcommenter {{{
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_cpp = 1
 let g:NERDAltDelims_c = 1
+""" }}}
+""" nvim-cmp {{{ 
+set completeopt=menu,menuone,noselect
+
+runtime nvim_cmp_server.lua
+
 """ }}}
