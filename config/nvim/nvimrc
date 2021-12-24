@@ -215,7 +215,5 @@ let g:NERDAltDelims_c = 1
 """ }}}
 """ nvim-cmp {{{ 
 set completeopt=menu,menuone,noselect
-
 runtime nvim_cmp_server.lua
-
 """ }}}
