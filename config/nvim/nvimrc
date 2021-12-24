@@ -1,4 +1,3 @@
-" Main options {{{
 " Python version options for Neovim {{{
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
@@ -31,7 +30,7 @@ set number
 " sign column for git/lsp
 set signcolumn=yes
 " 80th column - code might be getting messey
-set colorcolumn=80
+set colorcolumn=120
 
 set wildmenu
 "set hidden  " Useful feature, to have multiples buffer open
@@ -49,8 +48,8 @@ set showmatch
 set hlsearch
 match Error /{{{\|}}}/
 " }}}
-set clipboard=unnamedplus
 " General settings {{{
+set clipboard=unnamedplus
 set noswapfile
 set nobackup
 set nowritebackup
@@ -71,11 +70,11 @@ set lazyredraw
 set hidden
 
 "Indentation
-set shiftwidth=4
+set shiftwidth=2
 "tabs into spaces
 set expandtab
 set smartindent
-set tabstop=4 
+set tabstop=2
 " Don't want my tab command to get overwritten
 augroup expandtabFTW
     autocmd!
@@ -118,8 +117,8 @@ nnoremap <silent> <leader>j :previous<CR>
 nnoremap <silent> <leader>q :q<cr>
 nnoremap <silent> <leader>w :w!<cr>
 nnoremap <silent> <leader>e :Git<CR>
-nnoremap <silent> <leader>s :!tmux split-window 'make; read'<CR>
-nnoremap <silent> <leader>c :!tmux split-window 'make clean; read;' <CR>
+nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read'
+nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' 
 "nnoremap <silent> <leader>E :bd .git/index<CR>
 nnoremap <silent> <leader>a :copen<CR>
 nnoremap <silent> <leader>A :cclose<CR>
@@ -152,6 +151,10 @@ autocmd FileType markdown,vimwiki inoremap <C-L> <C-G>u<Esc>[s1z=`]a<C-G>u
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>[sve<C-G>
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>[sve<C-G>
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>b[sviw<C-G>
+
+" Code formatters
+autocmd FileType cpp,c  nnoremap <silent> <leader>o :!clang-format --style=LLVM -i %:p <CR>
+autocmd FileType python nnoremap <silent> <leader>o :!autopep8 -i -a --ignore=E128 --max-line-length=120 %p <CR>
 
 " To see carriage returns for windows files
 set fileformats=unix
