@@ -117,8 +117,8 @@ nnoremap <silent> <leader>j :previous<CR>
 nnoremap <silent> <leader>q :q<cr>
 nnoremap <silent> <leader>w :w!<cr>
 nnoremap <silent> <leader>e :Git<CR>
-nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read'
-nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' 
+nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read' <CR>
+nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR> 
 "nnoremap <silent> <leader>E :bd .git/index<CR>
 nnoremap <silent> <leader>a :copen<CR>
 nnoremap <silent> <leader>A :cclose<CR>
@@ -151,6 +151,9 @@ autocmd FileType markdown,vimwiki inoremap <C-L> <C-G>u<Esc>[s1z=`]a<C-G>u
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>[sve<C-G>
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>[sve<C-G>
 autocmd FileType markdown,vimwiki noremap <C-J> <Esc>b[sviw<C-G>
+
+" makefiles need tabs
+autocmd FileType make setlocal noexpandtab
 
 " Code formatters
 autocmd FileType cpp,c  nnoremap <silent> <leader>o :!clang-format --style=LLVM -i %:p <CR>
