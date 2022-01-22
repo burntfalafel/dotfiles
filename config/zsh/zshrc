@@ -79,4 +79,8 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^R' history-incremental-search-backward
 bindkey '^S' history-incremental-search-forward
+bindkey '^[[3~'   delete-char   # delete     delete one char forward
+bindkey '^[[5~'   beginning-of-line   # PgUp     beginning of line
+bindkey '^[[6~'   end-of-line         # PgDown     end of line
 source /home/void/.local/usr/zsh-autosuggestions/zsh-autosuggestions.zsh
+
