@@ -65,4 +65,3 @@ export GROFF_NO_SGR=yes
 
 #loading functions
 autoload -Uz zmv
-
