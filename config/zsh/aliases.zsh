@@ -16,6 +16,8 @@ alias vim='nvim'
 alias vi='nvim'
 alias vim="nvim"
 alias v="nvim"
+alias vfd='nvim $(fzf)'
+alias cfd='cd $(find * -type d | fzf)'
 
 #COLORFULNESS
 alias grep="grep --colour"
