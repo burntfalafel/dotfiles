@@ -27,6 +27,13 @@ mkday()
     cp /run/media/$USER/disk/DCIM/*/*(.) .
 }
 
+function c() {
+  if [[ -f "$1" ]]; then
+    cat "$1"
+  else
+    cd "$1"
+  fi
+}
 
 # HOOKS, INTERNALS, ETC
 autoload -U add-zsh-hook
