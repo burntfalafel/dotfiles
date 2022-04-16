@@ -96,6 +96,9 @@ set cmdheight=2
 " default updatetime from 4000ms to 50 is not good for async update
 set updatetime=50
 
+" angle brackets % matching
+set matchpairs+=<:>
+
 " }}}
 
 "Key-binding {{{
