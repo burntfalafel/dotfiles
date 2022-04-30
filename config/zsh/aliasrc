@@ -1,4 +1,17 @@
 export DOTFILES=$HOME/workspace/dotfiles
 
-alias ls="ls --color=auto"
+alias ls="ls -G"
+alias ll="ls -rtlhG"
+alias l='ls -lFh'     #size,show type,human readable
+alias vim="nvim"
+alias v="nvim"
+alias ...="cd ../../"
+alias ....="cd ../../../"
 alias dotup="pushd .; cd $DOTFILES; git add *; git commit -m \"`date`\"; git push "
+function c() {
+  if [[ -f "$1" ]]; then
+    cat "$1"
+  else
+    cd "$1"
+  fi
+}
