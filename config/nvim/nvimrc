@@ -162,6 +162,11 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType cpp,c  nnoremap <silent> <leader>o :!clang-format --style=LLVM -i %:p <CR>
 autocmd FileType python nnoremap <silent> <leader>o :!autopep8 -i -a --ignore=E128 --max-line-length=120 %p <CR>
 
+" Open file where I exit last 
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
+
 " To see carriage returns for windows files
 set fileformats=unix
 "Great map which saves the file in sudo mode, something like `sudo !!`
@@ -222,4 +227,7 @@ let g:NERDAltDelims_c = 1
 """ nvim-cmp {{{ 
 set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
+""" }}}
+""" netrw {{{
+let g:netrw_browse_split=4
 """ }}}
