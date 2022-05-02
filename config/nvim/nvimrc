@@ -229,5 +229,17 @@ set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
 """ }}}
 """ netrw {{{
-let g:netrw_browse_split=4
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 15
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * if argc() == 1 | Vexplore | wincmd w | endif
+augroup END
+
+" remap <c-l> of netrw to <c-r> and get back functionality
+nmap <unique> <c-r> <Plug>NetrwRefresh
+nmap <C-L>          <C-W><C-L>
 """ }}}
