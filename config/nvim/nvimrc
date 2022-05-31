@@ -140,6 +140,8 @@ noremap <C-L> <C-W><C-L>
 noremap <C-]> <C-W><C-S>
 noremap <C-\> <C-W><C-V>
 noremap <C-Q> <C-W><C-Q>
+" map redo
+nnoremap <C-Z> <C-R> 
 "nnoremap <leader>. :CtrlPTag<CR>
 " Ctrl + t for going up tag stack
 "nnoremap <leader>[ :tp<CR>
