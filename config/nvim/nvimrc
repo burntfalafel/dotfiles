@@ -49,7 +49,8 @@ set hlsearch
 match Error /{{{\|}}}/
 " }}}
 " General settings {{{
-set clipboard=unnamedplus
+" set clipboard=unnamed
+set clipboard+=unnamedplus
 set noswapfile
 set nobackup
 set nowritebackup
@@ -211,9 +212,13 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
+" For vsnip users.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
 " For ultisnips users.
-Plug 'SirVer/ultisnips'
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+" Plug 'SirVer/ultisnips'
+" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
