@@ -200,6 +200,17 @@ nnoremap <Down>      <C-w>5+
 nnoremap <Left>      <C-w>10<
 nnoremap <Right>     <C-w>10>
 tnoremap <Esc>		 <C-\><C-n>
+
+" close local fixlist window
+nnoremap <leader>l :call ToggleQFList(0)<CR>zz
+" nnoremap <leader>n :lnext<CR>zz
+" nnoremap <leader>p :lprev<CR>zz
+"Quickfix lixt stuffff!!!!!!!
+" nnoremap <C-q> :call ToggleQFList(1)<CR>
+nnoremap <C-q> :ccl<CR>
+nnoremap <leader>n :cprev<CR>zz
+nnoremap <leader>p :cnext<CR>zz
+"
 "}}}
 "Plugins {{{
 call plug#begin('~/.local/usr/nvim/plugged')
@@ -211,6 +222,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+" syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -258,4 +271,48 @@ augroup END
 " remap <c-l> of netrw to <c-r> and get back functionality
 nmap <unique> <c-r> <Plug>NetrwRefresh
 nmap <C-L>          <C-W><C-L>
+let g:NetrwIsOpen=1
+
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i 
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore
+    endif
+endfunction
+
+" Add your own mapping. For example:
+noremap <silent> <F9> :call ToggleNetrw()<CR>
+""" }}}
+""" quickfix lists {{{
+let g:the_primeagen_qf_l = 0
+let g:the_primeagen_qf_g = 0
+
+fun! ToggleQFList(global)
+    if a:global
+        if g:the_primeagen_qf_g == 1
+            let g:the_primeagen_qf_g = 0
+            cclose
+        else
+            let g:the_primeagen_qf_g = 1
+            copen
+        end
+    else
+        if g:the_primeagen_qf_l == 1
+            let g:the_primeagen_qf_l = 0
+            lclose
+        else
+            let g:the_primeagen_qf_l = 1
+            lopen
+        end
+    endif
+endfun
 """ }}}
