@@ -112,8 +112,7 @@ nnoremap Q <Nop>
 map <silent> <F2> :tabprevious<Enter>
 map <silent> <F3> :tabnext<Enter>
 map <silent> <F4> :tabnew<Enter>
-map <silent> <F9> :NERDTreeToggle<Enter>
-map <silent> <F8> :TagbarToggle<Enter>
+map <silent> <F9> :NvimTreeToggle<Enter>
 
 "Customized shortcuts
 nnoremap <silent> <leader>k :next<CR>
@@ -124,8 +123,6 @@ nnoremap <silent> <leader>e :Git<CR>
 nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read' <CR>
 nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR> 
 "nnoremap <silent> <leader>E :bd .git/index<CR>
-nnoremap <silent> <leader>a :copen<CR>
-nnoremap <silent> <leader>A :cclose<CR>
 nnoremap <silent> <leader>d :Gdiff<CR>
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 nnoremap <leader><space> :noh<cr>
@@ -190,9 +187,11 @@ nmap <Left> <Nop>
 nmap <Right> <Nop>
 
 " Switching between windows
-nnoremap <C-Right>	 :vsplit 
-nnoremap <C-Left>	 :Vex<CR>
+" nnoremap <C-Right>	 :vsplit 
+" nnoremap <C-Left>	 :Vex<CR>
 nnoremap <C-Down>	 :split 
+nnoremap <C-Left>    :bprev<CR>                                                                            
+nnoremap <C-Right>   :bnext<CR>
 nnoremap <C-Up>		 :Sex<CR>
 nnoremap <C-e>		 :E<CR>
 nnoremap <Up>	     <C-w>5-
@@ -207,7 +206,9 @@ nnoremap <leader>l :call ToggleQFList(0)<CR>zz
 " nnoremap <leader>p :lprev<CR>zz
 "Quickfix lixt stuffff!!!!!!!
 " nnoremap <C-q> :call ToggleQFList(1)<CR>
-nnoremap <C-q> :ccl<CR>
+nnoremap <silent> <leader>a :copen<CR>
+nnoremap <silent> <leader>A :cclose<CR>
+nnoremap <silent> <C-q> :cclose<CR>
 nnoremap <leader>n :cprev<CR>zz
 nnoremap <leader>p :cnext<CR>zz
 "
@@ -235,6 +236,10 @@ Plug 'hrsh7th/vim-vsnip'
 
 Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
+
+Plug 'mhinz/vim-grepper'
+Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 " }}}
 """ nerdcommenter {{{
@@ -248,49 +253,8 @@ let g:NERDAltDelims_c = 1
 set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
 """ }}}
-""" netrw {{{
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 15
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * if argc() == 1 | Vexplore | wincmd w | endif
-augroup END
-
-" close if final buffer is netrw or the quickfix
-augroup finalcountdown
- au!
- autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" || &buftype == 'quickfix' |q|endif
-" autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
-  nmap - :Lexplore<cr>
-" nmap - :NERDTreeToggle<cr>
-augroup END
-
-" remap <c-l> of netrw to <c-r> and get back functionality
-nmap <unique> <c-r> <Plug>NetrwRefresh
-nmap <C-L>          <C-W><C-L>
-let g:NetrwIsOpen=1
-
-function! ToggleNetrw()
-    if g:NetrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i 
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent Lexplore
-    endif
-endfunction
-
-" Add your own mapping. For example:
-noremap <silent> <F9> :call ToggleNetrw()<CR>
+""" nvim-tree {{{
+lua require ("nvim_tree_config")
 """ }}}
 """ quickfix lists {{{
 let g:the_primeagen_qf_l = 0
