@@ -7,8 +7,8 @@ require("nvim-tree").setup({
     mappings = {
       list = {
         { key = "u", action = "dir_up" },
-        { key = "s", cb = tree_cb("split") }, --tree_cb and the cb property are deprecated
-        { key = "v", cb = tree_cb("vsplit") }, --tree_cb and the cb property are deprecated
+        { key = "s", action = "split" },
+        { key = "v", action = "vsplit" },
         { key = "p", action = "print_path", action_cb = print_node_path },
       },
     },
