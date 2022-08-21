@@ -2,6 +2,7 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   open_on_setup = true,
   ignore_buffer_on_setup = true,
+  reload_on_bufenter = true,
   view = {
     adaptive_size = true,
     mappings = {
@@ -21,3 +22,8 @@ require("nvim-tree").setup({
   },
 })
 
+-- https://github.com/kyazdani42/nvim-tree.lua/issues/1005
+vim.api.nvim_create_autocmd('BufEnter', {
+    command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+    nested = true,
+})

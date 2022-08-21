@@ -249,6 +249,20 @@ let g:NERDSpaceDelims = 1
 let g:NERDAltDelims_cpp = 1
 let g:NERDAltDelims_c = 1
 """ }}}
+""" {{{
+" Grepper
+let g:grepper = {}
+let g:grepper.dir = 'repo,filecwd'
+let g:grepper.tools = ['ag']
+let g:grepper.simple_prompt = 1
+let g:grepper.quickfix = 1
+let g:grepper.highlight = 1
+highlight GrepperSideFile ctermfg=161 cterm=reverse
+highlight Conceal ctermfg=NONE ctermbg=250
+
+nnoremap <leader>st :Grepper -tool ag<CR>
+command! Todo Grepper -noprompt -tool rg -query '(TODO|FIX|FIXME|XXX|NOTE|HACK|OPTIMIZE):'
+
 """ nvim-cmp {{{ 
 set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
