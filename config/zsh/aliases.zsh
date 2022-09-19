@@ -39,3 +39,5 @@ alias detach="udisks --detach"
 
 alias pd="pushd"
 alias pp="popd"
+
+alias make=$HOME/.config/zsh/colormake.sh
