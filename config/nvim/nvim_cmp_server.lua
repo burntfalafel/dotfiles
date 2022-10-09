@@ -141,6 +141,30 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+-- nvim-lspconfig configs
+-- from https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#customizing-how-diagnostics-are-displayed
+-- show warnings on cursorhold
+vim.api.nvim_create_autocmd("CursorHold", {
+  buffer = bufnr,
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      -- border = 'rounded',
+      source = 'always',
+      prefix = ' ',
+      scope = 'cursor',
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end
+})
+-- disable warning text
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
+-- nvim tree-sitter configs
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "c", "lua", "rust", "cpp"},

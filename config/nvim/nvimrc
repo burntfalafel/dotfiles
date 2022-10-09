@@ -101,7 +101,6 @@ set updatetime=50
 set matchpairs+=<:>
 
 " }}}
-
 "Key-binding {{{
 " ---------------------------------------------------------------------
 let mapleader = ","
@@ -213,6 +212,9 @@ nnoremap <leader>n :cprev<CR>zz
 nnoremap <leader>p :cnext<CR>zz
 "
 "}}}
+" C/C++ Key bindings {{{
+" https://idie.ru/posts/vim-modern-cpp/
+" }}}
 "Plugins {{{
 call plug#begin('~/.local/usr/nvim/plugged')
 " git snippets
@@ -230,6 +232,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
+" For function list
+Plug 'liuchengxu/vista.vim'
+
 " For ultisnips users.
 " Plug 'SirVer/ultisnips'
 " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
@@ -242,15 +247,15 @@ Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 " }}}
-""" nerdcommenter {{{
+
+"Nerdcommenter {{{
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_cpp = 1
 let g:NERDAltDelims_c = 1
-""" }}}
-""" {{{
-" Grepper
+" }}}
+"Grepper {{{
 let g:grepper = {}
 let g:grepper.dir = 'repo,filecwd'
 let g:grepper.tools = ['ag']
@@ -262,15 +267,15 @@ highlight Conceal ctermfg=NONE ctermbg=250
 
 nnoremap <leader>st :Grepper -tool ag<CR>
 command! Todo Grepper -noprompt -tool rg -query '(TODO|FIX|FIXME|XXX|NOTE|HACK|OPTIMIZE):'
-
-""" nvim-cmp {{{ 
+"}}}
+" nvim-cmp {{{ 
 set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
-""" }}}
-""" nvim-tree {{{
+" }}}
+" nvim-tree {{{
 lua require ("nvim_tree_config")
-""" }}}
-""" quickfix lists {{{
+" }}}
+" quickfix lists {{{
 let g:the_primeagen_qf_l = 0
 let g:the_primeagen_qf_g = 0
 
@@ -293,4 +298,7 @@ fun! ToggleQFList(global)
         end
     endif
 endfun
-""" }}}
+" }}}
+" Vista {{{
+map  <silent> <leader>v :Vista!!<CR>
+" }}}
