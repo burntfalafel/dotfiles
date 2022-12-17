@@ -20,6 +20,10 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = true,
   },
+  update_focused_file = {
+      enable = true,
+      update_root = true,
+  },
 })
 
 -- https://github.com/kyazdani42/nvim-tree.lua/issues/1005

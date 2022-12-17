@@ -189,8 +189,8 @@ nmap <Right> <Nop>
 " nnoremap <C-Right>	 :vsplit 
 " nnoremap <C-Left>	 :Vex<CR>
 nnoremap <C-Down>	 :split 
-nnoremap <C-Right>   :bprev<CR>                                                                            
-nnoremap <C-Left>    :bnext<CR>
+nnoremap <C-Right>   :bnext<CR>                                                                            
+nnoremap <C-Left>    :bprev<CR>
 nnoremap <C-Up>		 :BufferClose<CR>
 nnoremap <C-e>		 :E<CR>
 nnoremap <Up>	     <C-w>5-
@@ -233,7 +233,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 " For function list
-Plug 'liuchengxu/vista.vim'
+Plug 'simrat39/symbols-outline.nvim'
 
 " For ultisnips users.
 " Plug 'SirVer/ultisnips'
@@ -302,9 +302,9 @@ fun! ToggleQFList(global)
     endif
 endfun
 " }}}
-" Vista {{{
-map  <silent> <leader>v :Vista!!<CR>
-let g:vista_sidebar_width = 50
+" Symbols-outline {{{
+map  <silent> <leader>v :SymbolsOutline<CR>
+lua require ("symbolsoutline_config")
 " }}}
 " Barbar {{{
 lua require ("barbar_config")
