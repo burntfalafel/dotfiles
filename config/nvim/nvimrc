@@ -71,11 +71,12 @@ set lazyredraw
 set hidden
 
 "Indentation
-set shiftwidth=4
+set shiftwidth=2
 "tabs into spaces
 set expandtab
 set smartindent
-set tabstop=4
+set tabstop=2
+set softtabstop=2
 " Don't want my tab command to get overwritten
 augroup expandtabFTW
     autocmd!
@@ -107,20 +108,22 @@ let mapleader = ","
 
 nnoremap Q <Nop>
 
+" Explorer
+nnoremap <silent> <leader>pv :Ex<CR>
+
 " Tabs
 map <silent> <F2> :tabprevious<Enter>
 map <silent> <F3> :tabnext<Enter>
 map <silent> <F4> :tabnew<Enter>
-map <silent> <F9> :NvimTreeToggle<Enter>
 
 "Customized shortcuts
 nnoremap <silent> <leader>k :next<CR>
 nnoremap <silent> <leader>j :previous<CR>
 nnoremap <silent> <leader>q :q<cr>
 nnoremap <silent> <leader>w :w!<cr>
-nnoremap <silent> <leader>e :Git<CR>
-nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read' <CR>
-nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR> 
+nnoremap <silent> <leader>gs :Git<CR>
+" nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read' <CR>
+" nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR> 
 "nnoremap <silent> <leader>E :bd .git/index<CR>
 nnoremap <silent> <leader>d :Gdiff<CR>
 nnoremap <silent> <leader>/ :nohlsearch<CR>
@@ -180,10 +183,10 @@ ab WQA wqa
 ab Wqa wqa
 
 " The hard way
-nmap <Up> <Nop>
-nmap <Down> <Nop>
-nmap <Left> <Nop>
-nmap <Right> <Nop>
+" nmap <Up> <Nop>
+" nmap <Down> <Nop>
+" nmap <Left> <Nop>
+" nmap <Right> <Nop>
 
 " Switching between windows
 " nnoremap <C-Right>	 :vsplit 
@@ -193,10 +196,10 @@ nnoremap <C-Right>   :bnext<CR>
 nnoremap <C-Left>    :bprev<CR>
 nnoremap <C-Up>		 :BufferClose<CR>
 nnoremap <C-e>		 :E<CR>
-nnoremap <Up>	     <C-w>5-
-nnoremap <Down>      <C-w>5+
-nnoremap <Left>      <C-w>10<
-nnoremap <Right>     <C-w>10>
+nnoremap <S-Up>	     <C-w>5-
+nnoremap <S-Down>      <C-w>5+
+nnoremap <S-Left>      <C-w>10<
+nnoremap <S-Right>     <C-w>10>
 tnoremap <Esc>		 <C-\><C-n>
 
 " close local fixlist window
@@ -242,12 +245,19 @@ Plug 'simrat39/symbols-outline.nvim'
 Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-Plug 'mhinz/vim-grepper'
-Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 " for buffer list, needs nvim-web-devicons
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
+
+"auto-setup LSP
+Plug 'williamboman/mason.nvim', {'do': ':MasonUpdate'} " Optional
+Plug 'williamboman/mason-lspconfig.nvim'               " Optional
+
+Plug 'mbbill/undotree'
+
 call plug#end()
 " }}}
 
@@ -258,25 +268,15 @@ let g:NERDSpaceDelims = 1
 let g:NERDAltDelims_cpp = 1
 let g:NERDAltDelims_c = 1
 " }}}
-"Grepper {{{
-let g:grepper = {}
-let g:grepper.dir = 'repo,filecwd'
-let g:grepper.tools = ['ag']
-let g:grepper.simple_prompt = 1
-let g:grepper.quickfix = 1
-let g:grepper.highlight = 1
-highlight GrepperSideFile ctermfg=161 cterm=reverse
-highlight Conceal ctermfg=NONE ctermbg=250
-
-nnoremap <leader>st :Grepper -tool ag<CR>
-command! Todo Grepper -noprompt -tool rg -query '(TODO|FIX|FIXME|XXX|NOTE|HACK|OPTIMIZE):'
+" Treesitter {{{
+lua require ("nvim_treesitter_config")
+" }}}
+"Telescope {{{
+lua require ("telescope_config")
 "}}}
 " nvim-cmp {{{ 
 set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
-" }}}
-" nvim-tree {{{
-lua require ("nvim_tree_config")
 " }}}
 " quickfix lists {{{
 let g:the_primeagen_qf_l = 0
@@ -308,4 +308,7 @@ lua require ("symbolsoutline_config")
 " }}}
 " Barbar {{{
 lua require ("barbar_config")
+" }}}
+" UndoTree {{{
+nnoremap <silent> <leader>u :UndotreeToggle<CR>
 " }}}
