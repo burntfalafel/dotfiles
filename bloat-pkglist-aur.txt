@@ -1,0 +1,6 @@
+clang-format-static-bin
+input-remapper-git
+konsave
+ncurses5-compat-libs
+spotify
+yay
