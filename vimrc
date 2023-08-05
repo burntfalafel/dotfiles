@@ -1,4 +1,12 @@
+" enable all vim features
+set nocompatible
+" enable filetype detection as well as type-specific plugin/indentation
+filetype plugin indent on
+
+syntax on " syntax highlight
+
 """ word wrap
+set wrap " wrap long lines
 setlocal wrap
 au VimEnter * if &diff | execute 'windo set wrap' | endif
 
@@ -8,6 +16,13 @@ set diffopt+=context:12   " show this many lines around diffs
 
 set number
 set relativenumber
+set mouse=a   " enable mouse usage (all modes)
+set ttyfast " speed up scrolling in Vim
+
+set hlsearch   " highlight the search terms
+set incsearch  " jump to the matches while typing
+set ignorecase " ignore case for searches
+set smartcase  " case sensitive when using capitals in search phrase
 
 call plug#begin()
 " The default plugin directory will be as follows:
