@@ -147,7 +147,11 @@ nnoremap <C-Z> <C-R>
 "nnoremap <leader>[ :tp<CR>
 "nnoremap <leader>] :tn<CR>
 "nnoremap <silent> # <C-z>
+
 " Spelling
+set spelllang=en_gb
+set spell
+
 " https://vi.stackexchange.com/questions/68/autocorrect-spelling-mistakes
 " Go back to last misspelled word and pick first suggestion.
 autocmd FileType markdown,vimwiki inoremap <C-L> <C-G>u<Esc>[s1z=`]a<C-G>u
@@ -249,7 +253,8 @@ Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 
 " for buffer list, needs nvim-web-devicons
 Plug 'kyazdani42/nvim-web-devicons'
@@ -261,6 +266,9 @@ Plug 'williamboman/mason-lspconfig.nvim'               " Optional
 
 Plug 'mbbill/undotree'
 
+Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
+Plug 'ThePrimeagen/harpoon'
+
 call plug#end()
 " }}}
 
@@ -270,6 +278,18 @@ let g:NERDSpaceDelims = 1
 " Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_cpp = 1
 let g:NERDAltDelims_c = 1
+" }}}
+" DoxygenToolkit {{{
+" let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
+" let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------"
+let g:DoxygenToolkit_authorName="Eashan Wadhwa"
+let g:DoxygenToolkit_startCommentTag = "/// "
+let g:DoxygenToolkit_interCommentTag = "/// "
+let g:DoxygenToolkit_endCommentTag = "///"
+let g:DoxygenToolkit_startCommentBlock = "// "
+let g:DoxygenToolkit_interCommentBlock = "// "
+let g:DoxygenToolkit_endCommentBlock="///"
+" let g:DoxygenToolkit_licenseTag="My own license"   <-- !!! Does not end with "\<enter>"
 " }}}
 " Treesitter {{{
 lua require ("nvim_treesitter_config")
@@ -336,6 +356,7 @@ let starry_daylight_switch=v:true  "this allow using brighter color
 " colorscheme
 lua require('starry.functions').toggle_style()
 lua require('modes_starry_config')
+hi SpellBad gui=undercurl guifg=#61380b guisp=#61380b
 " }}}
 " UndoTree {{{
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
