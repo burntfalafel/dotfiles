@@ -113,8 +113,9 @@ nnoremap <silent> <leader>pv :Ex<CR>
 
 " Tabs
 map <silent> <F2> :tabprevious<Enter>
-map <silent> <F3> :tabnext<Enter>
+" map <silent> <F3> :tabnext<Enter>
 map <silent> <F4> :tabnew<Enter>
+nnoremap <silent> <F3> :e /home/easwad01/.config/nvim/init.vim<CR>
 
 "Customized shortcuts
 nnoremap <silent> <leader>k :next<CR>
@@ -212,6 +213,7 @@ nnoremap <leader>l :call ToggleQFList(0)<CR>zz
 " nnoremap <leader>p :lprev<CR>zz
 "Quickfix lixt stuffff!!!!!!!
 " nnoremap <C-q> :call ToggleQFList(1)<CR>
+" nnoremap <silent> <buffer> o <CR><C-w>p
 nnoremap <silent> <leader>a :copen<CR>
 nnoremap <silent> <leader>A :cclose<CR>
 nnoremap <silent> <C-q> :cclose<CR>
@@ -222,10 +224,12 @@ nnoremap <leader>p :cnext<CR>zz
 " C/C++ Key bindings {{{
 " https://idie.ru/posts/vim-modern-cpp/
 " }}}
+" Lua bindings {{{
+lua require ("general")
+" }}}
 "Plugins {{{
 call plug#begin('~/.local/usr/nvim/plugged')
 " colorschemes
-Plug 'ray-x/starry.nvim'
 Plug 'mvllow/modes.nvim'
 " git snippets
 Plug 'tpope/vim-fugitive'
@@ -243,7 +247,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 " For function list
-Plug 'simrat39/symbols-outline.nvim'
+Plug 'hedyhli/outline.nvim'
 
 " For ultisnips users.
 " Plug 'SirVer/ultisnips'
@@ -268,6 +272,12 @@ Plug 'mbbill/undotree'
 
 Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
 Plug 'ThePrimeagen/harpoon'
+
+" ARM
+Plug 'ARM9/arm-syntax-vim'
+
+" Colour
+Plug 'EdenEast/nightfox.nvim' 
 
 call plug#end()
 " }}}
@@ -326,38 +336,27 @@ fun! ToggleQFList(global)
 endfun
 " }}}
 " Symbols-outline {{{
-map  <silent> <leader>v :SymbolsOutline<CR>
+map  <silent> <leader>v :Outline<CR>
 lua require ("symbolsoutline_config")
 " }}}
 " Barbar {{{
 lua require ("barbar_config")
 " }}}
 " Starry (& any other colorscheme) {{{
-let starry_bold = v:true  "set to false to disable bold globally
-let starry_italic = v:true "set to false to disable italic globally
-let starry_italic_comments = v:true
-let starry_italic_string = v:false
-let starry_italic_keywords = v:false
-let starry_italic_functions = v:false
-let starry_italic_variables = v:false
-let starry_contrast = v:true
-let starry_borders = v:false
-let starry_disable_background = v:true  "set to true to disable background and allow transparent background
-let starry_style_fix=v:true  "disable random loading
-let starry_style="moonlight"  "load moonlight everytime or
-let starry_darker_contrast=v:true  "darker background
-let starry_deep_black=v:true       "OLED deep black
-let starry_italic_keywords=v:false
-let starry_italic_functions=v:false
-let starry_set_hl=v:false " Note: enable for nvim 0.6+, it is faster (loading time down to 4~6s from 7~11s), but it does
-" not overwrite old values and may has some side effects
-let starry_daylight_switch=v:true  "this allow using brighter color
-" other themes: dracula, oceanic, dracula_blood, 'deep ocean', darker, palenight, monokai, mariana, emerald, middlenight_blue
-" colorscheme
-lua require('starry.functions').toggle_style()
-lua require('modes_starry_config')
+" dark mode:
+" let my_colorschemes = ['lunaperche', 'nightfox', 'carbonfox', 'slate' ]
+" light mode:
+let my_colorschemes = ['elflord', 'pablo', 'carbonfox', 'murphy']
+" let my_colorschemes = ['koehler']
+execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
 hi SpellBad gui=undercurl guifg=#61380b guisp=#61380b
+" }}}
+" Netrw {{{
+" let g:netrw_browse_split = 4
 " }}}
 " UndoTree {{{
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
+" }}}
+" Harpoon {{{
+lua require ("harpoon_config")
 " }}}

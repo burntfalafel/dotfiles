@@ -60,4 +60,4 @@ local opts = {
   }
 }
 
-require("symbols-outline").setup()
+require("outline").setup()
