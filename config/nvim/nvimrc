@@ -166,7 +166,7 @@ autocmd FileType markdown,vimwiki noremap <C-J> <Esc>b[sviw<C-G>
 autocmd FileType make setlocal noexpandtab
 
 " Code formatters
-autocmd FileType cpp,c  nnoremap <silent> <leader>o :!clang-format --style=LLVM -i %:p <CR>
+autocmd FileType cpp,c  nnoremap <silent> <leader>o :!clang-format --style=file -i %:p <CR>
 autocmd FileType python nnoremap <silent> <leader>o :!autopep8 -i -a --ignore=E128 --max-line-length=120 %p <CR>
 
 " Open file where I exit last 
@@ -208,17 +208,17 @@ nnoremap <S-Right>     <C-w>10>
 tnoremap <Esc>		 <C-\><C-n>
 
 " close local fixlist window
-nnoremap <leader>l :call ToggleQFList(0)<CR>zz
 " nnoremap <leader>n :lnext<CR>zz
 " nnoremap <leader>p :lprev<CR>zz
-"Quickfix lixt stuffff!!!!!!!
+"Quickfix list stuffff!!!!!!!
 " nnoremap <C-q> :call ToggleQFList(1)<CR>
-" nnoremap <silent> <buffer> o <CR><C-w>p
-nnoremap <silent> <leader>a :copen<CR>
-nnoremap <silent> <leader>A :cclose<CR>
+nnoremap <silent> <leader>; <C-w>p<CR>
+nnoremap <silent> <leader>wp <C-w>p<CR>
+nnoremap <silent> <leader>wr :copen<CR>
+nnoremap <silent> <leader>wq :cclose<CR>
 nnoremap <silent> <C-q> :cclose<CR>
-nnoremap <leader>n :cprev<CR>zz
-nnoremap <leader>p :cnext<CR>zz
+nnoremap <leader>wn :cprev<CR>zz
+nnoremap <leader>wp :cnext<CR>zz
 "
 "}}}
 " C/C++ Key bindings {{{
@@ -278,6 +278,9 @@ Plug 'ARM9/arm-syntax-vim'
 
 " Colour
 Plug 'EdenEast/nightfox.nvim' 
+
+" quickfix list replacement
+Plug 'kevinhwang91/nvim-bqf'
 
 call plug#end()
 " }}}
@@ -347,7 +350,7 @@ lua require ("barbar_config")
 " let my_colorschemes = ['lunaperche', 'nightfox', 'carbonfox', 'slate' ]
 " light mode:
 let my_colorschemes = ['elflord', 'pablo', 'carbonfox', 'murphy']
-" let my_colorschemes = ['koehler']
+" let my_colorschemes = ['koehler', 'elflord', 'murphy']
 execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
 hi SpellBad gui=undercurl guifg=#61380b guisp=#61380b
 " }}}
