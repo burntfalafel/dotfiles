@@ -224,9 +224,6 @@ nnoremap <leader>wp :cnext<CR>zz
 " C/C++ Key bindings {{{
 " https://idie.ru/posts/vim-modern-cpp/
 " }}}
-" Lua bindings {{{
-lua require ("general")
-" }}}
 "Plugins {{{
 call plug#begin('~/.local/usr/nvim/plugged')
 " colorschemes
@@ -255,9 +252,10 @@ Plug 'hedyhli/outline.nvim'
 
 Plug 'preservim/nerdcommenter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'drmikehenry/vim-headerguard'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
 Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 
 " for buffer list, needs nvim-web-devicons
@@ -282,9 +280,17 @@ Plug 'EdenEast/nightfox.nvim'
 " quickfix list replacement
 Plug 'kevinhwang91/nvim-bqf'
 
+" Export to VSCODE
+Plug 'elijahmanor/export-to-vscode.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter-context'
+
 call plug#end()
 " }}}
 
+" Lua bindings {{{
+lua require ("general")
+" }}}
 "Nerdcommenter {{{
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -296,12 +302,13 @@ let g:NERDAltDelims_c = 1
 " let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
 " let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------"
 let g:DoxygenToolkit_authorName="Eashan Wadhwa"
-let g:DoxygenToolkit_startCommentTag = "/// "
-let g:DoxygenToolkit_interCommentTag = "/// "
-let g:DoxygenToolkit_endCommentTag = "///"
-let g:DoxygenToolkit_startCommentBlock = "// "
-let g:DoxygenToolkit_interCommentBlock = "// "
-let g:DoxygenToolkit_endCommentBlock="///"
+let g:DoxygenToolkit_commentType = "C"
+" let g:DoxygenToolkit_startCommentTag = "/// "
+" let g:DoxygenToolkit_interCommentTag = "/// "
+" let g:DoxygenToolkit_endCommentTag = "///"
+" let g:DoxygenToolkit_startCommentBlock = "// "
+" let g:DoxygenToolkit_interCommentBlock = "// "
+" let g:DoxygenToolkit_endCommentBlock="///"
 " let g:DoxygenToolkit_licenseTag="My own license"   <-- !!! Does not end with "\<enter>"
 " }}}
 " Treesitter {{{
@@ -349,10 +356,9 @@ lua require ("barbar_config")
 " dark mode:
 " let my_colorschemes = ['lunaperche', 'nightfox', 'carbonfox', 'slate' ]
 " light mode:
-let my_colorschemes = ['elflord', 'pablo', 'carbonfox', 'murphy']
-" let my_colorschemes = ['koehler', 'elflord', 'murphy']
+let my_colorschemes = ['koehler', 'elflord', 'murphy']
 execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
-hi SpellBad gui=undercurl guifg=#61380b guisp=#61380b
+hi SpellBad gui=undercurl guifg=#a0805d guisp=#a0805d
 " }}}
 " Netrw {{{
 " let g:netrw_browse_split = 4
@@ -362,4 +368,7 @@ nnoremap <silent> <leader>u :UndotreeToggle<CR>
 " }}}
 " Harpoon {{{
 lua require ("harpoon_config")
+" }}}
+" Export-to-vscode {{{
+nnoremap <silent> <leader>code <cmd>lua require('export-to-vscode').launch()<cr>
 " }}}
