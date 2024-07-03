@@ -133,7 +133,7 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = { 'clangd', 'pyright', 'cmake', 'lua_ls', 'cmake'}
+local servers = { 'pyright', 'cmake', 'lua_ls', 'cmake'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -141,6 +141,22 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+lspconfig['asm_lsp'].setup {
+    on_attach = keybinding_attach,
+    capabilities = capabilities,
+    filetypes = {
+        "asm", "vmasm", "s", "S"
+    }
+}
+lspconfig['clangd'].setup {
+    on_attach = keybinding_attach,
+    capabilities = capabilities,
+    cmd = {
+        "clangd",
+        "--completion-style=detailed",
+        "--header-insertion=never"
+    }
+}
 
 -- nvim-lspconfig configs
 -- from https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#customizing-how-diagnostics-are-displayed
@@ -163,4 +179,3 @@ vim.api.nvim_create_autocmd("CursorHold", {
 vim.diagnostic.config({
   virtual_text = false,
 })
-

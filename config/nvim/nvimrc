@@ -125,7 +125,6 @@ nnoremap <silent> <leader>w :w!<cr>
 nnoremap <silent> <leader>gs :Git<CR>
 " nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read' <CR>
 " nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR> 
-"nnoremap <silent> <leader>E :bd .git/index<CR>
 nnoremap <silent> <leader>d :Gdiff<CR>
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 nnoremap <leader><space> :noh<cr>
@@ -211,7 +210,6 @@ tnoremap <Esc>		 <C-\><C-n>
 " nnoremap <leader>n :lnext<CR>zz
 " nnoremap <leader>p :lprev<CR>zz
 "Quickfix list stuffff!!!!!!!
-" nnoremap <C-q> :call ToggleQFList(1)<CR>
 nnoremap <silent> <leader>; <C-w>p<CR>
 nnoremap <silent> <leader>wp <C-w>p<CR>
 nnoremap <silent> <leader>wr :copen<CR>
@@ -255,7 +253,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'drmikehenry/vim-headerguard'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 
 " for buffer list, needs nvim-web-devicons
@@ -279,6 +277,7 @@ Plug 'EdenEast/nightfox.nvim'
 
 " quickfix list replacement
 Plug 'kevinhwang91/nvim-bqf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Export to VSCODE
 Plug 'elijahmanor/export-to-vscode.nvim'
@@ -320,30 +319,6 @@ lua require ("telescope_config")
 " nvim-cmp {{{ 
 set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
-" }}}
-" quickfix lists {{{
-let g:the_primeagen_qf_l = 0
-let g:the_primeagen_qf_g = 0
-
-fun! ToggleQFList(global)
-    if a:global
-        if g:the_primeagen_qf_g == 1
-            let g:the_primeagen_qf_g = 0
-            cclose
-        else
-            let g:the_primeagen_qf_g = 1
-            copen
-        end
-    else
-        if g:the_primeagen_qf_l == 1
-            let g:the_primeagen_qf_l = 0
-            lclose
-        else
-            let g:the_primeagen_qf_l = 1
-            lopen
-        end
-    endif
-endfun
 " }}}
 " Symbols-outline {{{
 map  <silent> <leader>v :Outline<CR>
