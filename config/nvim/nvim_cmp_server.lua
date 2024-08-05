@@ -41,9 +41,6 @@ local function has_words_before()
 end
 
 local keybinding_attach = function(client)
-	-- require'completion'.on_attach(client)
-	-- require'diagnostic'.on_attach(client)
-
 	map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
 	map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
 	map('n','gk','<cmd>lua vim.lsp.buf.hover()<CR>')
@@ -179,3 +176,4 @@ vim.api.nvim_create_autocmd("CursorHold", {
 vim.diagnostic.config({
   virtual_text = false,
 })
+

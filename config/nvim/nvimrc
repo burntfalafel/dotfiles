@@ -18,7 +18,7 @@ set termguicolors
 
 "set term=tmux-256color
 "## More options
-" line 
+" line
 set ruler
 " relative number (for eg. '12j')
 set relativenumber
@@ -36,7 +36,7 @@ set wildmenu
 "set hidden  " Useful feature, to have multiples buffer open
 "cursor
 set cursorline
-"hi clear CursorLine 
+"hi clear CursorLine
 "hi CursorLine term=bold cterm=bold guibg=Grey40
 "Searching
 nnoremap / /\v
@@ -88,7 +88,7 @@ set cino=N-s
 
 "uncategorized
 " source .vimrc in any folder
-set exrc 
+set exrc
 set wildignore=*.so,*.sw,*.pyc
 set mouse=a
 
@@ -101,6 +101,8 @@ set updatetime=50
 " angle brackets % matching
 set matchpairs+=<:>
 
+" Remove all whitespace when saving a file
+autocmd BufWritePre * :%s/\s\+$//e
 " }}}
 "Key-binding {{{
 " ---------------------------------------------------------------------
@@ -124,7 +126,7 @@ nnoremap <silent> <leader>q :q<cr>
 nnoremap <silent> <leader>w :w!<cr>
 nnoremap <silent> <leader>gs :Git<CR>
 " nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read' <CR>
-" nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR> 
+" nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR>
 nnoremap <silent> <leader>d :Gdiff<CR>
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 nnoremap <leader><space> :noh<cr>
@@ -141,7 +143,7 @@ noremap <C-]> <C-W><C-S>
 noremap <C-\> <C-W><C-V>
 noremap <C-Q> <C-W><C-Q>
 " map redo
-nnoremap <C-Z> <C-R> 
+nnoremap <C-Z> <C-R>
 "nnoremap <leader>. :CtrlPTag<CR>
 " Ctrl + t for going up tag stack
 "nnoremap <leader>[ :tp<CR>
@@ -168,7 +170,7 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType cpp,c  nnoremap <silent> <leader>o :!clang-format --style=file -i %:p <CR>
 autocmd FileType python nnoremap <silent> <leader>o :!autopep8 -i -a --ignore=E128 --max-line-length=120 %p <CR>
 
-" Open file where I exit last 
+" Open file where I exit last
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
@@ -193,10 +195,10 @@ ab Wqa wqa
 " nmap <Right> <Nop>
 
 " Switching between windows
-" nnoremap <C-Right>	 :vsplit 
+" nnoremap <C-Right>	 :vsplit
 " nnoremap <C-Left>	 :Vex<CR>
-nnoremap <C-Down>	 :split 
-nnoremap <C-Right>   :bnext<CR>                                                                            
+nnoremap <C-Down>	 :split
+nnoremap <C-Right>   :bnext<CR>
 nnoremap <C-Left>    :bprev<CR>
 nnoremap <C-Up>		 :BufferClose<CR>
 nnoremap <C-e>		 :E<CR>
@@ -235,7 +237,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 " syntax highlighting
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -273,7 +275,7 @@ Plug 'ThePrimeagen/harpoon'
 Plug 'ARM9/arm-syntax-vim'
 
 " Colour
-Plug 'EdenEast/nightfox.nvim' 
+Plug 'EdenEast/nightfox.nvim'
 
 " quickfix list replacement
 Plug 'kevinhwang91/nvim-bqf'
@@ -282,7 +284,15 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Export to VSCODE
 Plug 'elijahmanor/export-to-vscode.nvim'
 
+" very cool helps in refactoring code
+Plug 'ThePrimeagen/refactoring.nvim'
+
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'FabijanZulj/blame.nvim'
+
+Plug 'natecraddock/workspaces.nvim'
+
+Plug 'eandrju/cellular-automaton.nvim'
 
 call plug#end()
 " }}}
@@ -316,7 +326,7 @@ lua require ("nvim_treesitter_config")
 "Telescope {{{
 lua require ("telescope_config")
 "}}}
-" nvim-cmp {{{ 
+" nvim-cmp {{{
 set completeopt=menu,menuone,noselect
 runtime nvim_cmp_server.lua
 " }}}
@@ -343,6 +353,15 @@ nnoremap <silent> <leader>u :UndotreeToggle<CR>
 " }}}
 " Harpoon {{{
 lua require ("harpoon_config")
+" }}}
+" Refactor {{{
+lua require ("refactor_config")
+" }}}
+" Blame {{{
+lua require ("blame_config")
+" }}}
+" Workspaces {{{
+lua require ("workspaces_config")
 " }}}
 " Export-to-vscode {{{
 nnoremap <silent> <leader>code <cmd>lua require('export-to-vscode').launch()<cr>
