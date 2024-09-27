@@ -32,6 +32,9 @@ set signcolumn=yes
 " 80th column - code might be getting messey
 set colorcolumn=120
 
+" wordrap
+set wrap
+
 set wildmenu
 "set hidden  " Useful feature, to have multiples buffer open
 "cursor
@@ -50,7 +53,7 @@ match Error /{{{\|}}}/
 " }}}
 " General settings {{{
 " set clipboard=unnamed
-set clipboard+=unnamedplus
+set clipboard=unnamedplus
 set noswapfile
 set nobackup
 set nowritebackup
@@ -125,7 +128,7 @@ nnoremap <silent> <leader>j :previous<CR>
 nnoremap <silent> <leader>q :q<cr>
 nnoremap <silent> <leader>w :w!<cr>
 nnoremap <silent> <leader>gs :Git<CR>
-" nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'make; read' <CR>
+nnoremap <silent> <leader>s :!tmux new-window -n "runner-vim" -d 'ninja -C ../build/gcc-10.3.0/dbg VAL_VAL_AEMvA' <CR>
 " nnoremap <silent> <leader>c :!tmux new-window -n "runner-vim" -d 'make clean; read' <CR>
 nnoremap <silent> <leader>d :Gdiff<CR>
 nnoremap <silent> <leader>/ :nohlsearch<CR>
@@ -174,6 +177,9 @@ autocmd FileType python nnoremap <silent> <leader>o :!autopep8 -i -a --ignore=E1
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
+
+" Filetype support highlighting
+au BufNewFile,BufRead,BufReadPost *.i set filetype=asm
 
 " To see carriage returns for windows files
 set fileformats=unix
@@ -228,6 +234,7 @@ nnoremap <leader>wp :cnext<CR>zz
 call plug#begin('~/.local/usr/nvim/plugged')
 " colorschemes
 Plug 'mvllow/modes.nvim'
+Plug '0xstepit/flow.nvim'
 " git snippets
 Plug 'tpope/vim-fugitive'
 Plug 'neovim/nvim-lspconfig'
@@ -290,10 +297,13 @@ Plug 'ThePrimeagen/refactoring.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'FabijanZulj/blame.nvim'
 
-Plug 'natecraddock/workspaces.nvim'
+Plug 'rmagatti/auto-session'
 
 Plug 'eandrju/cellular-automaton.nvim'
 
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'rcarriga/nvim-dap-ui'
 call plug#end()
 " }}}
 
@@ -342,6 +352,7 @@ lua require ("barbar_config")
 " let my_colorschemes = ['lunaperche', 'nightfox', 'carbonfox', 'slate' ]
 " light mode:
 let my_colorschemes = ['koehler', 'elflord', 'murphy']
+" let my_colorschemes = ['flow']
 execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
 hi SpellBad gui=undercurl guifg=#a0805d guisp=#a0805d
 " }}}
@@ -360,8 +371,8 @@ lua require ("refactor_config")
 " Blame {{{
 lua require ("blame_config")
 " }}}
-" Workspaces {{{
-lua require ("workspaces_config")
+" Session {{{
+lua require ("session_config")
 " }}}
 " Export-to-vscode {{{
 nnoremap <silent> <leader>code <cmd>lua require('export-to-vscode').launch()<cr>

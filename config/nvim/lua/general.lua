@@ -28,3 +28,13 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 -- https://github.com/Eandrju/cellular-automaton.nvim
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+
+
+-- colorschemes
+require("flow").setup({
+      transparent = false,
+      fluo_color = "pink",
+      mode = "bright",
+      aggressive_spell = true,
+})
+
