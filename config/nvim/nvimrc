@@ -74,12 +74,12 @@ set lazyredraw
 set hidden
 
 "Indentation
-set shiftwidth=4
+set shiftwidth=2
 "tabs into spaces
 set expandtab
 set smartindent
-set tabstop=4
-set softtabstop=4
+set tabstop=2
+set softtabstop=2
 " Don't want my tab command to get overwritten
 augroup expandtabFTW
     autocmd!
@@ -304,11 +304,17 @@ Plug 'eandrju/cellular-automaton.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
+
+" my plugins :)
+Plug 'burntfalafel/signaltmux.nvim'
 call plug#end()
 " }}}
 
-" Lua bindings {{{
+" Lua general bindings {{{
 lua require ("general")
+" }}}
+" Lua Debug functions {{{
+" lua require ("lua_debugging")
 " }}}
 "Nerdcommenter {{{
 " Add spaces after comment delimiters by default
@@ -348,10 +354,11 @@ lua require ("symbolsoutline_config")
 lua require ("barbar_config")
 " }}}
 " Starry (& any other colorscheme) {{{
-" dark mode:
-" let my_colorschemes = ['lunaperche', 'nightfox', 'carbonfox', 'slate' ]
 " light mode:
-let my_colorschemes = ['koehler', 'elflord', 'murphy']
+" let my_colorschemes = ['dayfox']
+" dark mode:
+let my_colorschemes = ['lunaperche', 'carbonfox', 'slate' ]
+" let my_colorschemes = ['koehler', 'elflord', 'murphy']
 " let my_colorschemes = ['flow']
 execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
 hi SpellBad gui=undercurl guifg=#a0805d guisp=#a0805d
