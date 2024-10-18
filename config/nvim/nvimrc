@@ -44,6 +44,9 @@ set cursorline
 "Searching
 nnoremap / /\v
 vnoremap / /\v
+" https://stackoverflow.com/questions/355907/how-do-i-repeat-an-edit-on-multiple-lines-in-vim
+" repeat . on multiple lines in v-mode
+vnoremap . :normal .<CR>
 set ignorecase
 set smartcase
 set incsearch
@@ -74,12 +77,12 @@ set lazyredraw
 set hidden
 
 "Indentation
-set shiftwidth=2
+set shiftwidth=4
 "tabs into spaces
 set expandtab
 set smartindent
-set tabstop=2
-set softtabstop=2
+set tabstop=4
+set softtabstop=4
 " Don't want my tab command to get overwritten
 augroup expandtabFTW
     autocmd!
@@ -322,6 +325,7 @@ let g:NERDSpaceDelims = 1
 " Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_cpp = 1
 let g:NERDAltDelims_c = 1
+let g:NERDCustomDelimiters = { 's': { 'left': '//', 'right': '' }, 'S': { 'left': '//', 'right': '' }, 'i': { 'left': '//', 'right': '' } }
 " }}}
 " DoxygenToolkit {{{
 " let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
@@ -350,6 +354,9 @@ runtime nvim_cmp_server.lua
 map  <silent> <leader>v :Outline<CR>
 lua require ("symbolsoutline_config")
 " }}}
+" DAP {{{
+lua require("dap_config")
+" }}}
 " Barbar {{{
 lua require ("barbar_config")
 " }}}
@@ -357,8 +364,8 @@ lua require ("barbar_config")
 " light mode:
 " let my_colorschemes = ['dayfox']
 " dark mode:
-let my_colorschemes = ['lunaperche', 'carbonfox', 'slate' ]
-" let my_colorschemes = ['koehler', 'elflord', 'murphy']
+" let my_colorschemes = ['lunaperche', 'carbonfox', 'slate' ]
+let my_colorschemes = ['koehler', 'elflord', 'murphy']
 " let my_colorschemes = ['flow']
 execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
 hi SpellBad gui=undercurl guifg=#a0805d guisp=#a0805d
