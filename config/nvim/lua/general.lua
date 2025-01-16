@@ -4,6 +4,13 @@ vim.api.nvim_create_user_command("Cppath", function()
     vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
 
+vim.api.nvim_create_user_command("Gdbpath", function()
+    local path = (vim.fn.expand("%:h") .. '/' .. vim.fn.expand("%:t") .. ':' .. vim.fn.line("."))
+    vim.fn.setreg("+", path)
+    vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+
+
 local builtin = require('telescope.builtin')
 vim.api.nvim_create_user_command("TelescopeCppPathFiles", function()
     local current_file_path = vim.fn.expand('%:p')
@@ -37,4 +44,11 @@ require("flow").setup({
       mode = "bright",
       aggressive_spell = true,
 })
+
+-- Delete lsp log
+-- local lsp_log_file = vim.fn.expand("~/.cache/nvim/lsp.log")
+local lsp_log_file = vim.fn.expand("~/.local/state/nvim/lsp.log")
+if vim.fn.filereadable(lsp_log_file) == 1 then
+  os.remove(lsp_log_file)
+end
 

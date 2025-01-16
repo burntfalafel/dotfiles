@@ -127,6 +127,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 require('mason').setup()
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
@@ -138,13 +139,6 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-lspconfig['asm_lsp'].setup {
-    on_attach = keybinding_attach,
-    capabilities = capabilities,
-    filetypes = {
-        "asm", "vmasm", "s", "S"
-    }
-}
 lspconfig['clangd'].setup {
     on_attach = keybinding_attach,
     capabilities = capabilities,
@@ -154,6 +148,35 @@ lspconfig['clangd'].setup {
         "--header-insertion=never"
     }
 }
+
+-- lspconfig['asm_lsp'].setup {
+--     on_attach = keybinding_attach,
+--     capabilities = capabilities,
+--     filetypes = {
+--         "asm", "vmasm"
+--     }
+-- }
+
+configs.armls = {
+    default_config = {
+        on_attach = keybinding_attach,
+        cmd = { "/home/easwad01/.config/arm/armls" },
+        root_dir = lspconfig.util.root_pattern(".git"),
+        filetypes = {
+            "asm", "s", "S"
+        },
+    },
+}
+
+configs.armls.setup({
+    on_attach = keybinding_attach,
+    settings = {
+        armls = {
+            -- Uncomment to enable diagnostics, which are disabled by default
+            enableDiagnostics = true,
+        },
+    },
+})
 
 -- nvim-lspconfig configs
 -- from https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#customizing-how-diagnostics-are-displayed
