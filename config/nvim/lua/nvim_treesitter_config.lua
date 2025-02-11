@@ -9,9 +9,10 @@ require'nvim-treesitter.configs'.setup {
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = true,
 
+  -- disable for largefiles as I am getting E849: Too many highlight and syntax groups
   highlight = {
         enable = true,
-        disable = { 'markdown' }
+        disable = { 'largefile', 'markdown' }
     },
   indent = { enable = true },
   incremental_selection = {

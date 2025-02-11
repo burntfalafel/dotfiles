@@ -181,8 +181,11 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
 
-" Filetype support highlighting
+" Assembly QoL filetype config
+" " set highlighting for includes
 au BufNewFile,BufRead,BufReadPost *.i set filetype=asm
+" " 4 space for asm
+autocmd FileType asm setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " To see carriage returns for windows files
 set fileformats=unix
@@ -278,8 +281,9 @@ Plug 'williamboman/mason-lspconfig.nvim'               " Optional
 
 Plug 'mbbill/undotree'
 
-Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
+" is depending on plenary nvim
 Plug 'ThePrimeagen/harpoon'
+Plug 'm-demare/attempt.nvim'
 
 " ARM
 Plug 'ARM9/arm-syntax-vim'
@@ -307,6 +311,7 @@ Plug 'eandrju/cellular-automaton.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
+
 
 " my plugins :)
 Plug 'burntfalafel/signaltmux.nvim'
@@ -390,4 +395,7 @@ lua require ("session_config")
 " }}}
 " Export-to-vscode {{{
 nnoremap <silent> <leader>code <cmd>lua require('export-to-vscode').launch()<cr>
+" }}}
+" Attempt (Godbolt replacement) {{{
+lua require ("attempt_config")
 " }}}

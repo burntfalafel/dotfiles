@@ -1,12 +1,88 @@
 -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#ccrust-via-gdb
 local dap = require("dap")
+-- dap.adapters.gdb = {
+--   type = "executable",
+--   command = "gdb",
+--   args = { "--interpreter=dap", "--quiet", "--args", "/home/easwad01/.local/fm_scripts/run_test.sh", "--eval-command", "set print pretty on" }
+-- }
+
+-- dap.configurations.cpp = {
+--     {
+--         name = 'Run executable (GDB)',
+--         type = 'gdb',
+--         request = 'launch',
+--         -- This requires special handling of 'run_last', see
+--         -- https://github.com/mfussenegger/nvim-dap/issues/1025#issuecomment-1695852355
+--         program = function()
+--             local path = vim.fn.input({
+--                 prompt = 'Path to executable: ',
+--                 default = vim.fn.getcwd() .. '/',
+--                 completion = 'file',
+--             })
+
+--             return (path and path ~= '') and path or dap.ABORT
+--         end,
+--     },
+--     {
+--         name = 'Run executable with arguments (GDB)',
+--         type = 'gdb',
+--         request = 'launch',
+--         -- This requires special handling of 'run_last', see
+--         -- https://github.com/mfussenegger/nvim-dap/issues/1025#issuecomment-1695852355
+--         program = function()
+--             local path = vim.fn.input({
+--                 prompt = 'Path to executable: ',
+--                 default = vim.fn.getcwd() .. '/',
+--                 completion = 'file',
+--             })
+
+--             return (path and path ~= '') and path or dap.ABORT
+--         end,
+--         args = function()
+--             local args_str = vim.fn.input({
+--                 prompt = 'Arguments: ',
+--             })
+--             return vim.split(args_str, ' +')
+--         end,
+--     },
+--     {
+--         name = 'Attach to process (GDB)',
+--         type = 'gdb',
+--         request = 'attach',
+--         processId = require('dap.utils').pick_process,
+--     },
+-- }
+
+-- Define the adapter
 dap.adapters.gdb = {
   type = "executable",
-  command = "gdb",
-  args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+  command = "/home/easwad01/.local/fm_scripts/run_test.sh", -- Path to your modified script
+  args = {}, -- No additional arguments needed here
 }
 
-local dap = require('dap')
+-- Define the configuration
+dap.configurations.cpp = {
+  {
+    name = "Launch with run_test.sh",
+    type = "gdb", -- Matches the adapter name
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}', -- The current working directory
+    stopOnEntry = false, -- Set to true to stop at the entry point
+    args = {}, -- Arguments passed to the executable
+    setupCommands = {
+      {
+        text = "-enable-pretty-printing", -- Enable pretty-printing for GDB
+        description = "Enable GDB pretty printing",
+        ignoreFailures = false,
+      },
+    },
+  },
+}
+
+
 dap.adapters.python = function(cb, config)
   if config.request == 'attach' then
     ---@diagnostic disable-next-line: undefined-field
