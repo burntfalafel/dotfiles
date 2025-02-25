@@ -36,6 +36,23 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 -- https://github.com/Eandrju/cellular-automaton.nvim
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
+-- get git blame for a single line
+function _G.git_commit_message()
+    local file_path = vim.fn.expand("%:p")
+    local line_number = vim.fn.line(".")
+
+    local blame_cmd = "git blame -L " .. line_number .. "," .. line_number .. " -- '" .. file_path .. "' | awk '{print $1}' | head -1"
+    local commit_hash = vim.fn.system(blame_cmd):gsub("\n", "")
+
+    local show_cmd = "git show --format='%B' --no-patch " .. commit_hash
+    local commit_message = vim.fn.system(show_cmd)
+
+    -- Display the commit message in a floating popup or command line
+    vim.api.nvim_echo({{commit_message, "Normal"}}, false, {})
+end
+
+-- Keybinding to run the function
+vim.api.nvim_set_keymap('n', '<leader>gm', [[<Cmd>lua git_commit_message()<CR>]], { noremap = true, silent = true })
 
 -- colorschemes
 require("flow").setup({
