@@ -1,4 +1,5 @@
 local builtin = require('telescope.builtin')
+local actions = require("telescope.actions")
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fp', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
@@ -11,6 +12,17 @@ require('telescope').setup{
   defaults = {
     wrap_results = true,
     file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
-		"%.so", "%.o", "%.xml", "%.zip"}
-  }
+		"%.so", "%.o", "%.xml", "%.zip"},
+    history = {
+      path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+      limit = 100,
+    }
+  },
+  mappings = {
+      i = {
+        -- Another example using Ctrl-j and Ctrl-k
+        ["<C-j>"] = actions.cycle_history_prev,
+        ["<C-k>"] = actions.cycle_history_next,
+      },
+  },
 }
