@@ -2,6 +2,7 @@
 
 set history save
 set confirm off
+set breakpoint pending on
 set verbose off
 set print pretty on
 set print array off
