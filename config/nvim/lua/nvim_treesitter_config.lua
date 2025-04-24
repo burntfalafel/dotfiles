@@ -14,7 +14,10 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         disable = { 'largefile', 'markdown' }
     },
-  indent = { enable = true },
+  indent = {
+        enable = true,
+        disable = {"python"},
+    },
   incremental_selection = {
     enable = true,
     keymaps = {
