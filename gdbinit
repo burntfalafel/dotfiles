@@ -17,7 +17,6 @@ define reboot
 end
 # Start ------------------------------------------------------------------------
 
-
 python
 import gdb, os
 
@@ -33,42 +32,67 @@ WHITE = "\033[37m"
 RESET = "\033[0m"
 
 class Dashboard(gdb.Command):
-    """Persistent Dashboard: displays breakpoints and variables with color."""
+    """dashboard [on|off|toggle] -- render or toggle the custom dashboard."""
     def __init__(self):
         super(Dashboard, self).__init__("dashboard", gdb.COMMAND_USER)
-        self.banner = (BOLD + MAGENTA + "=" * 1 + RESET + "\n" +
-                       BOLD + BLUE + "   *** GDB Custom Dashboard ***" + RESET + "\n" +
-                       BOLD + MAGENTA + "=" * 1 + RESET + "\n")
+        self.banner = (
+            BOLD + MAGENTA + "=" * 1 + RESET + "\n" +
+            BOLD + BLUE + "   *** GDB Custom Dashboard ***" + RESET + "\n" +
+            BOLD + MAGENTA + "=" * 1 + RESET + "\n"
+        )
+        self.enabled = True
         gdb.events.stop.connect(self.on_stop)
 
     def on_stop(self, event):
-        self.render()
+        if self.enabled:
+            self.render()
 
     def render(self):
-        # Clear the screen.
-        #  gdb.write("\033[H\033[2J")
+        # Clear screen
+        # gdb.write("\033[H\033[2J")
+        # Banner
         gdb.write(self.banner)
-
-        # Display breakpoints.
-        bp_info = gdb.execute("info breakpoints", to_string=True)
-        gdb.write(GREEN + "Breakpoints:" + RESET + "\n" + bp_info + "\n")
-
-        # Display arguments.
+        # Arguments
         args_info = gdb.execute("info args", to_string=True)
         gdb.write(YELLOW + "Arguments:" + RESET + "\n" + args_info + "\n")
-
-        # Display locals but truncate if more than 10 entries.
+        # Locals (truncate >10)
         locals_info = gdb.execute("info locals", to_string=True)
         locals_lines = locals_info.splitlines()
         if len(locals_lines) > 10:
-            locals_lines = locals_lines[:10] + [f"... ({len(locals_lines)-10} more locals)"]
+            locals_lines = locals_lines[:10] + [f"... ({len(locals_lines)-10} more)"]
         gdb.write(CYAN + "Locals:" + RESET + "\n" + "\n".join(locals_lines) + "\n")
-
-        # Final prompt.
+        # Prompt
         gdb.write(BOLD + WHITE + ">>> " + RESET)
 
     def invoke(self, arg, from_tty):
-        self.render()
+        cmd = arg.strip().lower()
+        if cmd in ("off", "disable"):
+            if self.enabled:
+                gdb.events.stop.disconnect(self.on_stop)
+                self.enabled = False
+                print("Dashboard disabled")
+            else:
+                print("Dashboard already disabled")
+        elif cmd in ("on", "enable"):
+            if not self.enabled:
+                gdb.events.stop.connect(self.on_stop)
+                self.enabled = True
+                print("Dashboard enabled")
+                # immediate render if stopped
+                if gdb.selected_inferior().pid != 0 and not gdb.selected_thread().is_running():
+                    self.render()
+            else:
+                print("Dashboard already enabled")
+        elif cmd == "toggle":
+            if self.enabled:
+                self.invoke("off", from_tty)
+            else:
+                self.invoke("on", from_tty)
+        elif cmd:
+            print(f'Unknown argument "{arg}". Use on, off, or toggle.')
+        else:
+            # no args => manual render
+            self.render()
 
 Dashboard()
 end
