@@ -69,13 +69,11 @@ if vim.fn.filereadable(lsp_log_file) == 1 then
   os.remove(lsp_log_file)
 end
 
+------------------------
 -- For assembly files it's nice to have the first word have 4 character space between the next word
 -- Utility for that -
-function FormatFirstWordSpacing()
-  -- Get visual selection range
-  local start_line = vim.fn.getpos("'<")[2]
-  local end_line = vim.fn.getpos("'>")[2]
-
+-- Modified function that takes start/end lines as arguments
+local function FormatFirstWordSpacing(start_line, end_line)
   for line_num = start_line, end_line do
     local line = vim.fn.getline(line_num)
     local first, second = line:match("^%s*(%S+)%s+(.*)")
@@ -86,15 +84,26 @@ function FormatFirstWordSpacing()
   end
 end
 
-vim.api.nvim_create_user_command("FormatFirstWord", FormatFirstWordSpacing, {})
--- Autocmd to map 'g=' only for asm files (e.g., filetype 'asm')
+-- Command still exists if you want to call manually
+vim.api.nvim_create_user_command("FormatFirstWord", function()
+  local start_line = vim.fn.getpos("'<")[2]
+  local end_line = vim.fn.getpos("'>")[2]
+  FormatFirstWordSpacing(start_line, end_line)
+end, {})
+
+-- Filetype-specific keymap for asm
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "asm",
   callback = function()
-    -- Map 'g=' in visual mode to your formatter
     vim.keymap.set('x', 'g=', function()
-      vim.cmd("FormatFirstWord")
+      -- Get range BEFORE visual mode exits
+      local start_line = vim.fn.line("v")
+      local end_line = vim.fn.line(".")
+      if start_line > end_line then
+        start_line, end_line = end_line, start_line
+      end
+      FormatFirstWordSpacing(start_line, end_line)
     end, { noremap = true, silent = true, buffer = true })
   end,
 })
-
+------------------------
