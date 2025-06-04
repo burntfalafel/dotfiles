@@ -117,7 +117,7 @@ let mapleader = ","
 nnoremap Q <Nop>
 
 " Explorer
-nnoremap <silent> <leader>pv :Ex<CR>
+nnoremap <silent> <leader>pv :Explore<CR>
 
 " Tabs
 map <silent> <F2> :tabprevious<Enter>
