@@ -23,9 +23,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     -- Core functionality
-    { "nvim-lua/plenary.nvim", lazy = true },
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = "BufReadPost" },
-    { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPost" },
+    { "nvim-lua/plenary.nvim", lazy = false },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    { "nvim-treesitter/nvim-treesitter-context"},
 
     -- UI/UX
     { "mvllow/modes.nvim", event = "VeryLazy" },
@@ -50,9 +50,9 @@ require("lazy").setup({
 
     -- Completion
     { "hrsh7th/nvim-cmp", event = "InsertEnter" },
-    { "hrsh7th/cmp-nvim-lsp", lazy = true },
-    { "hrsh7th/cmp-buffer", lazy = true },
-    { "hrsh7th/cmp-path", lazy = true },
+    { "hrsh7th/cmp-nvim-lsp"},
+    { "hrsh7th/cmp-buffer"},
+    { "hrsh7th/cmp-path"},
     { "hrsh7th/cmp-cmdline", event = "CmdlineEnter" },
     { "hrsh7th/vim-vsnip", event = "InsertEnter" },
     { "hrsh7th/cmp-vsnip", event = "InsertEnter" },
@@ -82,7 +82,7 @@ require("lazy").setup({
     { "ARM9/arm-syntax-vim", ft = { "arm", "s" } },
 
     -- Auto-session
-    { "rmagatti/auto-session", lazy = true },
+    { "rmagatti/auto-session", lazy = false },
 
     -- FZF
     { "junegunn/fzf", build = function() vim.fn["fzf#install"]() end, cmd = "FZF" },
