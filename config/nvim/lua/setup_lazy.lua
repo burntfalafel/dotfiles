@@ -79,7 +79,7 @@ require("lazy").setup({
     { "ThePrimeagen/refactoring.nvim", event = "VeryLazy" },
 
     -- ARM syntax
-    { "ARM9/arm-syntax-vim", ft = { "arm", "s" } },
+    -- { "ARM9/arm-syntax-vim", ft = { "arm", "s" } },
 
     -- Auto-session
     { "rmagatti/auto-session", lazy = false },
