@@ -44,6 +44,7 @@ require("lazy").setup({
     { "elijahmanor/export-to-vscode.nvim", cmd = "ExportToVSCode" },
     { "FabijanZulj/blame.nvim", cmd = "BlameToggle" },
     { "eandrju/cellular-automaton.nvim", cmd = "CellularAutomaton" },
+    { "chentoast/marks.nvim", event = "VeryLazy", opts = {} },
 
     -- Git
     { "tpope/vim-fugitive", lazy = false },
@@ -85,7 +86,8 @@ require("lazy").setup({
     { "rmagatti/auto-session", lazy = false },
 
     -- FZF
-    { "junegunn/fzf", build = function() vim.fn["fzf#install"]() end, cmd = "FZF" },
+    -- { "junegunn/fzf", build = function() vim.fn["fzf#install"]() end, cmd = "FZF" },
+    { "junegunn/fzf" },
 
     -- Your custom plugin
     { "burntfalafel/signaltmux.nvim", event = "VeryLazy" },
