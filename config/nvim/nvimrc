@@ -231,6 +231,7 @@ nnoremap <silent> <leader>wq :cclose<CR>
 nnoremap <silent> <C-q> :cclose<CR>
 nnoremap <leader>wn :cprev<CR>zz
 nnoremap <leader>wp :cnext<CR>zz
+nnoremap <leader>wm :MarksQFListAll<CR>
 "
 "}}}
 " C/C++ Key bindings {{{
