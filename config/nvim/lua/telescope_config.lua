@@ -1,8 +1,13 @@
 local builtin = require('telescope.builtin')
 local actions = require("telescope.actions")
+local lga_shortcuts = require("telescope-live-grep-args.shortcuts")
+
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fp', builtin.git_files, {})
 vim.keymap.set("n", "<leader>fg", require('telescope').extensions.live_grep_args.live_grep_args, {})
+vim.keymap.set("n", "<leader>,",  require('telescope').extensions.live_grep_args.live_grep_args, {})
+vim.keymap.set("n", "<leader>fw", lga_shortcuts.grep_word_under_cursor, { desc = "Find current Word" })
+vim.keymap.set("v", "<leader>,",  lga_shortcuts.grep_visual_selection, { desc = "Find by Grep (Visual)" })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fr', builtin.resume, {})

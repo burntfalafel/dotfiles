@@ -46,7 +46,7 @@ require("lazy").setup({
     { "eandrju/cellular-automaton.nvim", cmd = "CellularAutomaton" },
 
     -- Git
-    { "tpope/vim-fugitive", cmd = "Git" },
+    { "tpope/vim-fugitive", lazy = false },
 
     -- Completion
     { "hrsh7th/nvim-cmp", event = "InsertEnter" },

@@ -296,6 +296,7 @@ let my_colorschemes = ['koehler', 'elflord', 'murphy']
 " let my_colorschemes = ['flow']
 execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
 hi SpellBad gui=undercurl guifg=#a0805d guisp=#a0805d
+hi ColorColumn guibg=#2c2c2c
 " }}}
 " Netrw {{{
 " let g:netrw_browse_split = 4
