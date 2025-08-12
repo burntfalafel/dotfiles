@@ -11,7 +11,7 @@ syntax on
 "## 256 terminal
 "let g:solarized_termcolors=256
 "let g:solarized_diffmode="high"
-set background=dark
+" set background=dark
 "https://github.com/thedenisnikulin/vim-cyberpunk
 set termguicolors
 " colorscheme cyberpunk
@@ -283,7 +283,8 @@ map  <silent> <leader>v :Outline<CR>
 lua require ("symbolsoutline_config")
 " }}}
 " DAP {{{
-lua require("dap_config")
+" lua require("dap_config")
+lua require("dap_rr_config")
 " }}}
 " Barbar {{{
 lua require ("barbar_config")
@@ -293,9 +294,10 @@ lua require ("barbar_config")
 " let my_colorschemes = ['dayfox']
 " dark mode:
 " let my_colorschemes = ['lunaperche', 'carbonfox', 'slate' ]
-let my_colorschemes = ['koehler', 'elflord', 'murphy']
-" let my_colorschemes = ['flow']
-execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
+" let my_colorschemes = ['koehler', 'elflord', 'murphy']
+let my_colorschemes = ['flow']
+" execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
+" colorscheme tokyonight
 hi SpellBad gui=undercurl guifg=#a0805d guisp=#a0805d
 hi ColorColumn guibg=#2c2c2c
 " }}}

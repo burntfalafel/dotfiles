@@ -45,6 +45,14 @@ require("lazy").setup({
     { "FabijanZulj/blame.nvim", cmd = "BlameToggle" },
     { "eandrju/cellular-automaton.nvim", cmd = "CellularAutomaton" },
     { "chentoast/marks.nvim", event = "VeryLazy", opts = {} },
+    { "MunifTanjim/nui.nvim", event = "VeryLazy" },
+    { "VonHeikemen/fine-cmdline.nvim", event = "VeryLazy", cmd = "FineCmdLine" },
+    {
+      "folke/tokyonight.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
+    },
 
     -- Git
     { "tpope/vim-fugitive", lazy = false },
@@ -69,12 +77,20 @@ require("lazy").setup({
     -- Telescope
     { "nvim-telescope/telescope.nvim", tag = "0.1.8", cmd = "Telescope" },
     { "nvim-telescope/telescope-live-grep-args.nvim", cmd = "Telescope" },
+    { "kkharji/sqlite.lua" },
     { "nvim-telescope/telescope-smart-history.nvim", cmd = "Telescope" },
 
     -- DAP
-    { "mfussenegger/nvim-dap", lazy = true },
-    { "nvim-neotest/nvim-nio", lazy = true },
+    -- { "mfussenegger/nvim-dap", lazy = true },
+    -- { "nvim-neotest/nvim-nio", lazy = true },
     { "rcarriga/nvim-dap-ui", lazy = true },
+    { "mason-org/mason.nvim", opts = { ui = { icons = {
+                package_installed = "✓",
+                package_pending = "➜",
+                package_uninstalled = "✗"
+            } } }
+    },
+    { "jonboh/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
 
     -- Refactoring
     { "ThePrimeagen/refactoring.nvim", event = "VeryLazy" },

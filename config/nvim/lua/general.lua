@@ -4,6 +4,12 @@ vim.api.nvim_create_user_command("Cppath", function()
     vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
 
+vim.api.nvim_create_user_command("RelCppath", function()
+    local path = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":~:.")
+    vim.fn.setreg("+", path)
+    vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+
 vim.api.nvim_create_user_command("Gdbpath", function()
     local path = (vim.fn.expand("%:h") .. '/' .. vim.fn.expand("%:t") .. ':' .. vim.fn.line("."))
     vim.fn.setreg("+", path)
@@ -56,11 +62,14 @@ vim.api.nvim_set_keymap('n', '<leader>gm', [[<Cmd>lua git_commit_message()<CR>]]
 
 -- colorschemes
 require("flow").setup({
-      transparent = false,
+      transparent = true,
       fluo_color = "pink",
       mode = "bright",
       aggressive_spell = true,
 })
+
+vim.g.tokyonight_dark_float = false
+vim.api.nvim_set_hl(0,"TelescopeNormal",{bg="none"})
 
 -- Delete lsp log
 -- local lsp_log_file = vim.fn.expand("~/.cache/nvim/lsp.log")
@@ -107,3 +116,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 ------------------------
+
+--- delete all marks functions
+local function clear_all_marks()
+  vim.cmd('delm! | delm A-Z0-9')
+end
+
+-- Optionally create a command
+vim.api.nvim_create_user_command('ClearMarks', clear_all_marks, {})
+
