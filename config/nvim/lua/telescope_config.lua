@@ -15,20 +15,22 @@ vim.keymap.set("n", "<leader>fa", function() builtin.find_files({ follow = true,
 vim.keymap.set("n", "<leader>fz", function() builtin.live_grep({ vimgrep_arguments = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-u', '--multiline', '--multiline-dotall' } }) end)
 require('telescope').setup{
   defaults = {
-    wrap_results = true,
-    file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
-		"%.so", "%.o", "%.xml", "%.zip"},
-    history = {
-      path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
-      limit = 100,
-    }
-  },
-  mappings = {
-      i = {
-        -- Another example using Ctrl-j and Ctrl-k
-        ["<C-j>"] = actions.cycle_history_prev,
-        ["<C-k>"] = actions.cycle_history_next,
-      },
-  },
+        wrap_results = true,
+        file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
+            "%.so", "%.o", "%.xml", "%.zip"},
+        history = {
+          path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+          limit = 100,
+        },
+         mappings = {
+              i = {
+                -- Another example using Ctrl-j and Ctrl-k
+                -- ["<C-j>"] = actions.cycle_history_prev,
+                -- ["<C-k>"] = actions.cycle_history_next,
+                ["<C-k>"] = actions.cycle_history_next,
+                ["<C-j>"] = actions.cycle_history_prev,
+              },
+        },
+    },
 }
 require('telescope').load_extension('smart_history')
