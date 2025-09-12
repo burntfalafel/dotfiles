@@ -283,7 +283,6 @@ map  <silent> <leader>v :Outline<CR>
 lua require ("symbolsoutline_config")
 " }}}
 " DAP {{{
-" lua require("dap_config")
 lua require("dap_rr_config")
 " }}}
 " Barbar {{{
@@ -324,4 +323,8 @@ nnoremap <silent> <leader>code <cmd>lua require('export-to-vscode').launch()<cr>
 " }}}
 " Attempt (Godbolt replacement) {{{
 lua require ("attempt_config")
+" }}}
+" Copilot {{{
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 " }}}

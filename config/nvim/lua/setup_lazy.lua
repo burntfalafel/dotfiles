@@ -73,6 +73,23 @@ require("lazy").setup({
     { "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
     { "williamboman/mason.nvim", build = ":MasonUpdate", cmd = "Mason" },
     { "williamboman/mason-lspconfig.nvim", lazy = true },
+    { "github/copilot.vim" },
+    {
+      {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        dependencies = {
+          { "github/copilot.vim" },
+          { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+        },
+        build = "make tiktoken", -- Only on MacOS or Linux
+        opts = {
+          debug = true, -- Enable debugging
+          -- See Configuration section for rest
+        },
+        lazy = false,
+        -- See Commands section for default commands if you want to lazy load on them
+      },
+    },
 
     -- Telescope
     { "nvim-telescope/telescope.nvim", tag = "0.1.8", cmd = "Telescope" },
@@ -81,16 +98,18 @@ require("lazy").setup({
     { "nvim-telescope/telescope-smart-history.nvim", cmd = "Telescope" },
 
     -- DAP
-    -- { "mfussenegger/nvim-dap", lazy = true },
-    -- { "nvim-neotest/nvim-nio", lazy = true },
-    { "rcarriga/nvim-dap-ui", lazy = true },
+    {"williamboman/mason.nvim"},
+    {"mfussenegger/nvim-dap"},
+    {"jay-babu/mason-nvim-dap.nvim"},
+    { "theHamsta/nvim-dap-virtual-text", dependencies = "nvim-dap" },
+    { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
     { "mason-org/mason.nvim", opts = { ui = { icons = {
                 package_installed = "✓",
                 package_pending = "➜",
                 package_uninstalled = "✗"
             } } }
     },
-    { "jonboh/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
+    { "burntfalafel/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
 
     -- Refactoring
     { "ThePrimeagen/refactoring.nvim", event = "VeryLazy" },
