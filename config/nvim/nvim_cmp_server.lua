@@ -172,6 +172,16 @@ configs.armls.setup({
         armls = {
             -- Uncomment to enable diagnostics, which are disabled by default
             enableDiagnostics = true,
+            diagnostics = {
+                enable = true,
+                disableCategories = {
+                    -- "unrecognisedInstruction",
+                    -- -- ill-advised to clear, but idgaf
+                    -- "invalidOperand",
+                    -- "tooManyOperands",
+                    -- "tooFewOperands",
+                },
+            }
         },
     },
 })

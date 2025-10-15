@@ -123,7 +123,11 @@ nnoremap <silent> <leader>pv :Explore<CR>
 map <silent> <F2> :tabprevious<Enter>
 " map <silent> <F3> :tabnext<Enter>
 map <silent> <F4> :tabnew<Enter>
-nnoremap <silent> <F3> :e /home/easwad01/.config/nvim/init.vim<CR>
+
+" Shortcuts to open files
+nnoremap <silent> <F3> :e ~/.local/fm_scripts/run_test.sh<CR>
+" <S-F3>: <F15>
+nnoremap <silent> <F15> :e /home/easwad01/.config/nvim/init.vim<CR>
 
 "Customized shortcuts
 nnoremap <silent> <leader>k :next<CR>
