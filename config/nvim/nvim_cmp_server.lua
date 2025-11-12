@@ -129,33 +129,31 @@ require('mason').setup()
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig.configs')
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = { 'pyright', 'cmake', 'lua_ls', 'cmake', 'rust_analyzer'}
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    on_attach = keybinding_attach,
-    capabilities = capabilities,
-  }
-end
-lspconfig['clangd'].setup {
-    on_attach = keybinding_attach,
-    capabilities = capabilities,
-    cmd = {
-        "clangd",
-        "--completion-style=detailed",
-        "--header-insertion=never"
-    }
+local servers = { 'pyright', 'cmake', 'lua_ls', 'rust_analyzer', 'clangd' }
+
+-- Shared options
+local common = {
+  on_attach = keybinding_attach,
+  capabilities = capabilities,
 }
 
--- lspconfig['asm_lsp'].setup {
---     on_attach = keybinding_attach,
---     capabilities = capabilities,
---     filetypes = {
---         "asm", "vmasm"
---     }
--- }
+-- Generic servers
+for _, s in ipairs({ 'pyright', 'cmake', 'lua_ls', 'rust_analyzer' }) do
+  vim.lsp.config(s, common)
+end
+
+-- clangd with custom cmd
+vim.lsp.config('clangd', vim.tbl_extend('force', common, {
+  cmd = { 'clangd', '--completion-style=detailed', '--header-insertion=never' },
+}))
+
+-- Optional: example for asm_lsp if you enable it later
+-- vim.lsp.config('asm_lsp', vim.tbl_extend('force', common, {
+--   filetypes = { 'asm', 'vmasm' },
+-- }))
+
+-- Finally, enable all configured servers
+vim.lsp.enable(servers)
 
 configs.armls = {
     default_config = {
