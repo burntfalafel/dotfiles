@@ -25,6 +25,7 @@ require("lazy").setup({
     -- Core functionality
     { "nvim-lua/plenary.nvim", lazy = false },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    { "burntfalafel/tree-sitter-tarmac", lazy = false},
     { "nvim-treesitter/nvim-treesitter-context"},
 
     -- UI/UX
@@ -94,6 +95,7 @@ require("lazy").setup({
     -- Telescope
     { "nvim-telescope/telescope.nvim", tag = "0.1.8", cmd = "Telescope" },
     { "nvim-telescope/telescope-live-grep-args.nvim", cmd = "Telescope" },
+    { "nvim-telescope/telescope-file-browser.nvim", cmd = "Telescope" },
     { "kkharji/sqlite.lua" },
     { "nvim-telescope/telescope-smart-history.nvim", cmd = "Telescope" },
 

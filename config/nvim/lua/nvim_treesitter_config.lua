@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "cmake", "cpp", "python", "bash", "make", "cmake", "lua", "vim", "vimdoc", "query" },
+  ensure_installed = { "c", "cmake", "cpp", "python", "bash", "make", "cmake", "lua", "vim", "vimdoc", "query", "tarmac"},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -77,6 +77,24 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+
+-- Custom parser: tarmac
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+parser_config.tarmac = {
+  install_info = {
+    url = "https://github.com/burntfalafel/tree-sitter-tarmac",
+    files = { "src/parser.c" },
+    branch = "main",
+  },
+  filetype = "tarmac",
+  maintainers = { "@burntfalafel" },
+}
+
+-- Prefer the newer register form (maps filetype(s) -> language/parser)
+vim.treesitter.language.register("tarmac", { "tarmac" })
+
 require'treesitter-context'.setup{
   enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
   max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.

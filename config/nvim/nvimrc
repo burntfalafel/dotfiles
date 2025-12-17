@@ -188,6 +188,14 @@ endif
 " Assembly QoL filetype config
 " " set highlighting for includes
 au BufNewFile,BufRead,BufReadPost *.i set filetype=asm
+au BufNewFile,BufRead,BufReadPost *.tarmac set filetype=tarmac
+augroup TarmacFiles
+    autocmd!
+    autocmd FileType tarmac highlight default link @mmu_events.tarmac Special
+    autocmd FileType tarmac highlight default link @testcase.tarmac Title
+    autocmd FileType tarmac lua require('tarmac_folds').setup()
+augroup END
+
 " " 4 space for asm
 autocmd FileType asm setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
@@ -292,17 +300,23 @@ lua require("dap_rr_config")
 " Barbar {{{
 lua require ("barbar_config")
 " }}}
-" Starry (& any other colorscheme) {{{
-" light mode:
+" Colorschemes: {{{
+"" light mode:
 " let my_colorschemes = ['dayfox']
-" dark mode:
+"" dark mode:
 " let my_colorschemes = ['lunaperche', 'carbonfox', 'slate' ]
 " let my_colorschemes = ['koehler', 'elflord', 'murphy']
-let my_colorschemes = ['flow']
-" execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
+" let my_colorschemes = ['flow']
+let my_colorschemes = ['carbonfox']
+execute 'colorscheme' my_colorschemes[rand() % (len(my_colorschemes)) ]
 " colorscheme tokyonight
 hi SpellBad gui=undercurl guifg=#a0805d guisp=#a0805d
 hi ColorColumn guibg=#2c2c2c
+
+" darker background
+hi Normal   guibg=#0b0b0b
+hi NormalNC guibg=#0b0b0b
+hi EndOfBuffer guibg=#0b0b0b
 " }}}
 " Netrw {{{
 " let g:netrw_browse_split = 4
