@@ -195,6 +195,7 @@ augroup TarmacFiles
     autocmd FileType tarmac highlight default link @testcase.tarmac Title
     autocmd FileType tarmac lua require('tarmac_folds').setup()
 augroup END
+autocmd BufWritePre *.tarmac silent! %!sed -r 's/\x1B\[[0-9;]*[mK]//g'
 
 " " 4 space for asm
 autocmd FileType asm setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
@@ -345,4 +346,7 @@ lua require ("attempt_config")
 " Copilot {{{
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
+" }}}
+" {{{ nvim-conv
+lua require ("nvim_conv_config")
 " }}}

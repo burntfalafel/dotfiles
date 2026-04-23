@@ -25,11 +25,13 @@ require('telescope').setup{
   defaults = {
         wrap_results = true,
         file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
-            "%.so", "%.o", "%.xml", "%.zip"},
+            "%.so", "%.o", "%.xml", "%.zip",
+            "%.d", "^GUI/", "MaxCore/", "TestLibs/", "TestOutput/","ModelNetworking/", "LISATools/", "FeatureConfigs/", "RegTests/"},
         history = {
           path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
           limit = 100,
         },
+        treesitter = true,
          mappings = {
               i = {
                 -- Another example using Ctrl-j and Ctrl-k
@@ -39,7 +41,7 @@ require('telescope').setup{
                 ["<C-j>"] = actions.cycle_history_prev,
               },
         },
-        sorting_strategy = "ascending",
+        -- sorting_strategy = "ascending",
         wrap_results = true,
         layout_config = {
             horizontal = {
@@ -48,7 +50,7 @@ require('telescope').setup{
         },
     },
     pickers = {
-				colorscheme = { enable_preview = true },
+				-- colorscheme = { enable_preview = true },
 				find_files = {
 					hidden = true,
 					no_ignore = true,
@@ -65,7 +67,7 @@ require('telescope').setup{
 				},
 				current_buffer_fuzzy_find = {
 					layout_strategy = "vertical",
-					previewer = false,
+					previewer = enable,
 					layout_config = {
 						vertical = {
 							prompt_position = "top",

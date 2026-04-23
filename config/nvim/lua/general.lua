@@ -125,3 +125,11 @@ end
 -- Optionally create a command
 vim.api.nvim_create_user_command('ClearMarks', clear_all_marks, {})
 
+
+--------------------------
+-- Go to definition in a vsplit
+vim.keymap.set('n', 'go', function()
+  vim.cmd('vsplit')
+  vim.lsp.buf.definition()
+end, { desc = 'LSP definition in vsplit' })
+

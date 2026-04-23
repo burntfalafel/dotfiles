@@ -24,7 +24,7 @@ require("lazy").setup({
   spec = {
     -- Core functionality
     { "nvim-lua/plenary.nvim", lazy = false },
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    -- { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate"},
     { "burntfalafel/tree-sitter-tarmac", lazy = false},
     { "nvim-treesitter/nvim-treesitter-context"},
 
@@ -93,7 +93,7 @@ require("lazy").setup({
     },
 
     -- Telescope
-    { "nvim-telescope/telescope.nvim", tag = "0.1.8", cmd = "Telescope" },
+    { "nvim-telescope/telescope.nvim", tag = "v0.2.2", cmd = "Telescope" },
     { "nvim-telescope/telescope-live-grep-args.nvim", cmd = "Telescope" },
     { "nvim-telescope/telescope-file-browser.nvim", cmd = "Telescope" },
     { "kkharji/sqlite.lua" },
@@ -113,8 +113,16 @@ require("lazy").setup({
     },
     { "burntfalafel/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
 
+    -- Convert numbers
+    { "simonefranza/nvim-conv"},
+
     -- Refactoring
-    { "ThePrimeagen/refactoring.nvim", event = "VeryLazy" },
+    { "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+        "lewis6991/async.nvim",
+      },
+      lazy = false,
+    },
 
     -- ARM syntax
     -- { "ARM9/arm-syntax-vim", ft = { "arm", "s" } },
@@ -130,5 +138,6 @@ require("lazy").setup({
     { "burntfalafel/signaltmux.nvim", event = "VeryLazy" },
   },
   install = { colorscheme = { "habamax" } },
-  checker = { enabled = true },
+  checker = { enabled = true,
+              notify = false },
 })

@@ -1,2 +1,4 @@
 config/zsh/
 undodir
+lazy-lock.json
+parser/
