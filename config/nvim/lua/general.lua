@@ -133,3 +133,16 @@ vim.keymap.set('n', 'go', function()
   vim.lsp.buf.definition()
 end, { desc = 'LSP definition in vsplit' })
 
+-- Clipboard sharing using OSC52 over SSH and nvim
+-- from the neovim help page.
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
