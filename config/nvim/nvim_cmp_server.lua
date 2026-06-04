@@ -31,7 +31,11 @@ local lsp_symbols = {
 
 -- used by keybinding_attach
 local map = function(type, key, value)
-	vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
+  vim.keymap.set(type, key, value, {
+    buffer = 0,
+    noremap = true,
+    silent = true,
+  })
 end
 
 -- used by <Tab>
@@ -52,11 +56,35 @@ local keybinding_attach = function(client)
 	map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 	map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
 	map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
-	map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
 	-- map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
-	map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+    map('n','<leader>ee', '<cmd>vim.diagnostic.open_float()<CR>')
+    map('n','<leader>=', '<cmd>vim.lsp.buf.format()<CR>')
 	map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
 	map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+    map('n', ']e', function()
+      vim.diagnostic.jump({
+        count = 1,
+        severity = vim.diagnostic.severity.ERROR,
+      })
+    end)
+    map('n', '[e', function()
+      vim.diagnostic.jump({
+        count = -1,
+        severity = vim.diagnostic.severity.ERROR,
+      })
+    end)
+    map('n', ']w', function()
+      vim.diagnostic.jump({
+        count = 1,
+        severity = vim.diagnostic.severity.WARN,
+      })
+    end)
+    map('n', '[w', function()
+      vim.diagnostic.jump({
+        count = -1,
+        severity = vim.diagnostic.severity.WARN,
+      })
+    end)
 end
 
 

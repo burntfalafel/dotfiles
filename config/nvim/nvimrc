@@ -188,6 +188,7 @@ endif
 " Assembly QoL filetype config
 " " set highlighting for includes
 au BufNewFile,BufRead,BufReadPost *.i set filetype=asm
+au BufNewFile,BufRead,BufReadPost *.S set filetype=asm
 au BufNewFile,BufRead,BufReadPost *.tarmac set filetype=tarmac
 augroup TarmacFiles
     autocmd!

@@ -26,7 +26,7 @@ require('telescope').setup{
         wrap_results = true,
         file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
             "%.so", "%.o", "%.xml", "%.zip",
-            "%.d", "^GUI/", "MaxCore/", "TestLibs/", "TestOutput/","ModelNetworking/", "LISATools/", "FeatureConfigs/", "RegTests/"},
+            "%.d", "^GUI/", "MaxCore/", "TestLibs/", "TestOutput/","ModelNetworking/", "LISATools/", "FeatureConfigs/" },
         history = {
           path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
           limit = 100,
