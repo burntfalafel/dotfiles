@@ -54,6 +54,7 @@ require("lazy").setup({
       priority = 1000,
       opts = {},
     },
+    { "rcarriga/nvim-notify", event = "VeryLazy"},
 
     -- Git
     { "tpope/vim-fugitive", lazy = false },
