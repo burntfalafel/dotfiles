@@ -180,8 +180,11 @@ vim.api.nvim_create_autocmd("FileType", {
   group = augroup("TarmacFiles"),
   pattern = "tarmac",
   callback = function()
+    vim.treesitter.start(0, "tarmac")
+
     vim.api.nvim_set_hl(0, "@mmu_events.tarmac", { default = true, link = "Special" })
     vim.api.nvim_set_hl(0, "@testcase.tarmac", { default = true, link = "Title" })
+
     require("tarmac_folds").setup()
   end,
 })

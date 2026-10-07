@@ -21,12 +21,42 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fr', builtin.resume, {})
 vim.keymap.set("n", "<leader>fa", function() builtin.find_files({ follow = true, no_ignore = true, hidden = true }) end)
 vim.keymap.set("n", "<leader>fz", function() builtin.live_grep({ vimgrep_arguments = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-u', '--multiline', '--multiline-dotall' } }) end)
+vim.keymap.set("n", "<leader>fc", function()
+  require("telescope.builtin").find_files({
+    prompt_title = "Find C/C++ files",
+    find_command = {
+      "fd",
+      "--type", "f",
+      "--extension", "cpp",
+      "--extension", "cc",
+      "--extension", "cxx",
+      "--extension", "h",
+      "--extension", "hpp",
+    },
+  })
+end, { desc = "Find C/C++ files" })
+vim.keymap.set("n", "<leader>fs", function()
+  require("telescope.builtin").find_files({
+    prompt_title = "Find ASM / i / Robot / Python files",
+    find_command = {
+      "fd",
+      "--type", "f",
+      "--extension", "S",
+      "--extension", "i",
+      "--extension", "robot",
+      "--extension", "py",
+    },
+  })
+end, { desc = "Find .S/.i/.robot/.py files" })
+
+
+
 require('telescope').setup{
   defaults = {
         wrap_results = true,
         file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
             "%.so", "%.o", "%.xml", "%.zip",
-            "%.d", "^GUI/", "MaxCore/", "TestLibs/", "TestOutput/","ModelNetworking/", "LISATools/", "FeatureConfigs/" },
+            "%.d", "^GUI/", "MaxCore/", "TestLibs/", "TestOutput/","ModelNetworking/", "LISATools/", "FeatureConfigs/", "robot_test_output/", "^robot_test_output/" },
         history = {
           path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
           limit = 100,

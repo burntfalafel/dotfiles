@@ -58,6 +58,25 @@ require("lazy").setup({
 
     -- Git
     { "tpope/vim-fugitive", lazy = false },
+    { "kdheepak/lazygit.nvim",
+        lazy = true,
+        cmd = {
+            "LazyGit",
+            "LazyGitConfig",
+            "LazyGitCurrentFile",
+            "LazyGitFilter",
+            "LazyGitFilterCurrentFile",
+        },
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        -- setting the keybinding for LazyGit with 'keys' is recommended in
+        -- order to load the plugin when the command is run for the first time
+        keys = {
+            { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+        }
+    },
 
     -- Completion
     { "hrsh7th/nvim-cmp", event = "InsertEnter" },
@@ -77,6 +96,28 @@ require("lazy").setup({
     { "williamboman/mason-lspconfig.nvim", lazy = true },
     { "github/copilot.vim" },
     {
+      "johnseth97/codex.nvim",
+      cmd = { "Codex", "CodexToggle" },
+      keys = {
+        {
+          "<leader>ct",
+          function()
+            require("codex").toggle()
+          end,
+          desc = "Toggle Codex",
+          mode = { "n", "t" },
+        },
+      },
+      opts = {
+        autoinstall = false,
+        border = "rounded",
+        keymaps = {
+          quit = "<C-q>",
+          toggle = nil,
+        },
+      },
+    },
+    {
       {
         "CopilotC-Nvim/CopilotChat.nvim",
         dependencies = {
@@ -92,6 +133,7 @@ require("lazy").setup({
         -- See Commands section for default commands if you want to lazy load on them
       },
     },
+    { "let-def/texpresso.vim", },
 
     -- Telescope
     { "nvim-telescope/telescope.nvim", tag = "v0.2.2", cmd = "Telescope" },

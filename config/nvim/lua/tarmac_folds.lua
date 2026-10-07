@@ -1,3 +1,23 @@
+-- Make sure you run `clone-treesitters.sh first!!!
+local parser_path = vim.fn.expand("~/.config/nvim/parser/tarmac.so")
+
+if vim.fn.filereadable(parser_path) == 1 then
+  vim.treesitter.language.add("tarmac", {
+    path = parser_path,
+  })
+end
+
+vim.treesitter.language.register("tarmac", "tarmac")
+
+vim.filetype.add({
+  extension = {
+    tarmac = "tarmac",
+    trace = "tarmac",
+  },
+  pattern = {
+    [".*%.tarmac%.log"] = "tarmac",
+  },
+})
 
   -- lua/tarmac_folds.lua
   local ts = vim.treesitter
